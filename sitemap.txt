@@ -26,6 +26,7 @@ http://licharyuan.github.io/tags/cmake/
 http://licharyuan.github.io/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/
 http://licharyuan.github.io/tags/tools/
 http://licharyuan.github.io/tags/papers/
+http://licharyuan.github.io/tags/LLM/
 http://licharyuan.github.io/categories/Code/
 http://licharyuan.github.io/categories/Info/
 http://licharyuan.github.io/categories/Papers/
