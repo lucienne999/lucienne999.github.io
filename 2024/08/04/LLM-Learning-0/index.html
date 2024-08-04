@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>LLM-Learning 记录 | 小圆的角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言：在 LLM 淘汰我这个搬砖仔之前，决定死的瞑目些，于是开始了对 LLM 的了解。 Intro to Large Language Models 🔗推荐这个视频：https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v&#x3D;zjkBMFhNj_g Key Insights 🔗 LLM 的本质是数据压缩，模仿已有数据的行为。但不负责事实，不具备推理能力。（很好，我还能干到 35 岁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LLM-Learning 记录">
+<meta property="og:url" content="http://licharyuan.github.io/2024/08/04/LLM-Learning-0/index.html">
+<meta property="og:site_name" content="小圆的角落">
+<meta property="og:description" content="前言：在 LLM 淘汰我这个搬砖仔之前，决定死的瞑目些，于是开始了对 LLM 的了解。 Intro to Large Language Models 🔗推荐这个视频：https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v&#x3D;zjkBMFhNj_g Key Insights 🔗 LLM 的本质是数据压缩，模仿已有数据的行为。但不负责事实，不具备推理能力。（很好，我还能干到 35 岁">
+<meta property="og:locale">
+<meta property="og:image" content="http://licharyuan.github.io/2024/08/04/LLM-Learning-0/0-image0.png">
+<meta property="og:image" content="http://licharyuan.github.io/2024/08/04/LLM-Learning-0/0-image1.png">
+<meta property="og:image" content="http://licharyuan.github.io/2024/08/04/LLM-Learning-0/0-image2.png">
+<meta property="article:published_time" content="2024-08-04T10:24:14.000Z">
+<meta property="article:modified_time" content="2024-08-04T14:08:20.407Z">
+<meta property="article:author" content="lichar">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://licharyuan.github.io/2024/08/04/LLM-Learning-0/0-image0.png">
+  
+  
+    <link href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Ubuntu:400,700,400italic" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="小圆的角落" type="application/atom+xml">
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小圆的角落</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">好乐无荒 良士休休</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <a id="nav-github-link" class="nav-icon" href="https://github.com/LicharYuan" target="_blank"></a>
+        
+        
+        
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://licharyuan.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-LLM-Learning-0" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2024/08/04/LLM-Learning-0/" class="article-date">
+  <time datetime="2024-08-04T10:24:14.000Z" itemprop="datePublished">2024-08-04</time>
+</a>
+      
+  </div>
+  <div class="article-inner">
+    
+      
+        <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      LLM-Learning 记录
+    </h1>
+  
+
+        </header>
+        
+          <div class="article-entry" itemprop="articleBody">
+            
+                      <!-- 
+    <div id="toc">
+        <strong class="sidebar-title"></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Intro to Large Language Models 🔗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Key Insights 🔗</span></a></li></ol></li></ol>
+    </div>
+     -->
+                      <p>前言：在 LLM 淘汰我这个搬砖仔之前，决定死的瞑目些，于是开始了对 LLM 的了解。</p>
+<h2><span id="intro-to-large-language-models">Intro to Large Language Models</span><a href="#intro-to-large-language-models" class="header-anchor"> 🔗</a></h2><p>推荐这个视频：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=zjkBMFhNj_g">https://www.youtube.com/watch?v=zjkBMFhNj_g</a></p>
+<h3><span id="key-insights">Key Insights</span><a href="#key-insights" class="header-anchor"> 🔗</a></h3><ol>
+<li>LLM 的本质是数据压缩，模仿已有数据的行为。但不负责事实，不具备推理能力。（很好，我还能干到 35 岁</li>
+</ol>
+<p><img src="/2024/08/04/LLM-Learning-0/0-image0.png" alt="LLM 如何工作"></p>
+<ol start="2">
+<li>得到 GPT 一般分为两步：预训练和微调。由于模型很大，直接 train-from-scratch 很不划算，一般都是会在基座模型的基础上基于更新的数据加工。通常得到 GPT 之后还会有 RAG 以及一些 prompt engineering 来得到满意的回答。（有的时候你也会引导 GPT 得到自己想要的回答，某种程度就是 prompt engineering</li>
+</ol>
+<p><img src="/2024/08/04/LLM-Learning-0/0-image1.png" alt="如何得到 LLM"></p>
+<ol start="3">
+<li><p>LLM 现在也面临很多挑战，比如 jailbreak attack (越狱攻击), 绕过安全措施的问答； prompt injection attacks（提示注入），导致回答结果带有不良信息，比如诈骗网站之类的，data posioning &#x2F; backdoor attacks（数据操纵&#x2F;后门攻击） ，比如带有一些恶意触发的 prompt 让 GPT 泄漏用户隐私。</p>
+</li>
+<li><p>LLM 未来的展望。</p>
+<p> 大部分都是从产品的角度上来展望的。</p>
+<ul>
+<li>简单点就是接着执行 scaling-law，大力出奇迹；</li>
+<li>搜索引擎，比如现在大家都在用的 perplexity；</li>
+<li>交互式编程，比如对于一些可以直接 fetch 的信息，自动出图，拟合等等；现在还想还没看来类似的产品出现, 还是需要人工闭环的。</li>
+<li>多模态，比如 Vision-Language-Model，或者短视频大热的 chatGPT 的 DAN 模式，赛博男友。目前都是的模态融合似乎还是很有探索的空间。</li>
+<li>推理，人类的思维模式是有快慢系统的，快系统就是很多知识缓存在了脑子，慢系统则需要一些时间计算；比如我们可以很快得到 10+12&#x3D;22 这样的计算，但是要计算 127*123+231 就得慢慢算了；LLM 的只是做了一部分的快系统，而需要推理能力，更长时间计算的慢系统则是需要更多的时间。</li>
+<li>如何超越数据本身，其实和推理有一点类似；但还有差别，所以单独拎出来讲；所谓的超越就比如 AlphaGO，给他的数据都是人类的数据，但是他为什么可以在下棋的时候超越人类呢？因为围棋可以用模拟器来模拟之后发生的事情，得到 rewards，找到当前最佳的选择。但是对于 LLM 来说这种 rewards 是很难定义的，这是一个更开放的空间；目前还没有看到类似的进展。 </li>
+<li>LLM 作为系统的一部分；我觉得这是最兴奋的一个点；LLM 作为硬件基础服务的一部分，嵌入日常的生活，大佬给了一张图介绍 LLMOS的架构；同时我觉得这可能是下一代的硬件形态。</li>
+</ul>
+<p> <img src="/2024/08/04/LLM-Learning-0/0-image2.png" alt="LLM OS"></p>
+</li>
+<li><p>总结 &amp; 思考：LLM 的浪潮真的很猛，虽然提到一些缺陷，但我觉得都是可以被解决的；更值得被思考的时，未来我们和 LLM 的关系，LLM 可以再怎么加入我们的生活；就我个人而说，已经离不开 GPT，视频课代表，monica.im 这些工具了；但是在更工业的方向，LLM 可以做什么呢？比如和机器人的结合，比如在自动驾驶领域等等，期待 LLM 干掉我的那一天，我也就再也不用焦虑失业，而是踏踏实实的躺平。（bushi</p>
+</li>
+</ol>
+
+                        
+          </div>
+          <footer class="article-footer">
+            <a data-url="http://licharyuan.github.io/2024/08/04/LLM-Learning-0/" data-id="clzfmzgow0000gul1fo087krz" class="article-share-link">Share</a>
+            
+                
+          </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/07/26/papers/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">论文记录1</div>
+    </a>
+  
+</nav>
+
+      
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/04/LLM-Learning-0/">LLM-Learning 记录</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/26/papers/">论文记录1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/08/hpc-python-note/">hpc-python-note</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/13/network-optimize/">模型部署 之network优化</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/25/wirte-note/">写作学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/17/Bugs-record/">日常记录</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/11/cpack-note-md/">如何打包你的c++程序 [DEBIAN]</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/29/quant-note-md/">量化笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/26/tools-collections/">Tools Collections</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/16/Hexo-collections/">Hexo 资料汇总</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/">Code</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Info/">Info</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Papers/">Papers</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/" rel="tag">3D</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NeRF/" rel="tag">NeRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/papers/" rel="tag">papers</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/" rel="tag">模型量化</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 lichar<br>
+      
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<div id="scroll2top" style="position:fixed;bottom:150px;right:50px;cursor: pointer;Z-index:9999">
+<a title="返回顶部" href="#"><img src="/scroll2top/scrollup.png"/></a>
+</div>
+<script src="/scroll2top/scroll2top.js"></script>
+
+
+
+  </div>
+</body>
+</html>

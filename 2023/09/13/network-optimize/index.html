@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>模型部署 之network优化 | 小圆的角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="做过一段时间的模型优化，总结一下经验。 模型优化目的是：在指定设备上，实现性能和速度的trade-off.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模型部署 之network优化">
+<meta property="og:url" content="http://licharyuan.github.io/2023/09/13/network-optimize/index.html">
+<meta property="og:site_name" content="小圆的角落">
+<meta property="og:description" content="做过一段时间的模型优化，总结一下经验。 模型优化目的是：在指定设备上，实现性能和速度的trade-off.">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-09-13T02:33:00.000Z">
+<meta property="article:modified_time" content="2024-07-20T06:38:28.140Z">
+<meta property="article:author" content="lichar">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Ubuntu:400,700,400italic" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="小圆的角落" type="application/atom+xml">
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小圆的角落</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">好乐无荒 良士休休</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <a id="nav-github-link" class="nav-icon" href="https://github.com/LicharYuan" target="_blank"></a>
+        
+        
+        
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://licharyuan.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-network-optimize" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/09/13/network-optimize/" class="article-date">
+  <time datetime="2023-09-13T02:33:00.000Z" itemprop="datePublished">2023-09-13</time>
+</a>
+      
+  </div>
+  <div class="article-inner">
+    
+      
+        <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      模型部署 之network优化
+    </h1>
+  
+
+        </header>
+        
+          <div class="article-entry" itemprop="articleBody">
+            
+                      <!-- 
+    <div id="toc">
+        <strong class="sidebar-title"></strong>
+        
+    </div>
+     -->
+                      <p>做过一段时间的模型优化，总结一下经验。</p>
+<p>模型优化目的是：在指定设备上，实现性能和速度的trade-off. </p>
+<span id="more"></span>
+
+<p>工程实践上，我们通常会基于一个已有的模型在已知的硬件上优化。以自己实际的实践中，大概可以分成下面几个方向：</p>
+<ul>
+<li><p>模型调整</p>
+<ul>
+<li>算力分配调整<ul>
+<li>增加第一个stage的计算，减少后面stage的计算</li>
+<li>减少&#x2F;增加 某个 stage 通道数 &amp; 层数</li>
+</ul>
+</li>
+<li>基础算子调整<ul>
+<li>使用 1x3 3x1  conv 来替换 3x3 3x3 conv，虽然改变了感受野但是性能整体不会有太大影响</li>
+<li>使用 large kernel size large stride 来实现快速下采样，比如 7x7 kernel size stride&#x3D;4 来减少一次下采样</li>
+</ul>
+</li>
+<li>算子位置调整 <ul>
+<li>在大的维度做attention，可能是不必要的，可以放在更小的维度来做。需要去rethink每个操作目的，实现更高效的操作</li>
+<li>通常1x1 conv的作用是为了对齐通道数，在设计模型的时候保证各个stage的通道数一致，可以减少不必要的1x1</li>
+</ul>
+</li>
+<li>某些”等效”操作<ul>
+<li>重参数化技巧，比如repVgg, 利用conv的可加性，把多分支合并</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>profile驱动的调整<br>通常分为几个步骤:</p>
+<ul>
+<li>使用profile工具对整个pipeline分析，例如 nsys</li>
+<li>找到耗时大户，分析原因</li>
+<li>寻找解决方案<br>举个实际例子。在自动驾驶的bev-former部署，发现 multi-scale-deformable-conv 这个操作会占据比较大的时间，再深入分析的时候可以发现，每次得到dense-bev操作的时候都需要执行3d-&gt;2d的转换，实际上相机内参固定的时候可以直接使用查找表的形式，类似的方法在fast-bev中也使用了。这样就能加速这个模块的运行时间。类似的操作很多，需要细节的分析和思考。</li>
+</ul>
+</li>
+<li><p>运行类型调整<br>混精度图的运行模式，比如把模型全部量化，使用int8来运行模型，配合硬件的实现可以大幅度减少时间。<br>但对于精度敏感的模块需要额外小心。</p>
+</li>
+<li><p>计算图的调整<br>比如onnxsim的做的操作，节点融合，消除空计算节点，常量折叠等等。这里会涉及到一些 ai 编译器相关的知识。</p>
+</li>
+<li><p>合理利用资源<br>更合理的安排线上的资源利用，比如，合理分配cpu &amp; gpu 的负载，合理利用 cudastream，尽可能用异步拷贝，orin平台利用其稀疏化，DLA计算等等。</p>
+</li>
+</ul>
+<p>（后续有别的实践方向再来补充</p>
+
+                        
+          </div>
+          <footer class="article-footer">
+            <a data-url="http://licharyuan.github.io/2023/09/13/network-optimize/" data-id="clytrlz1g000hyvl16bct37r3" class="article-share-link">Share</a>
+            
+                
+          </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/04/08/hpc-python-note/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          hpc-python-note
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/08/25/wirte-note/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">写作学习笔记</div>
+    </a>
+  
+</nav>
+
+      
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/04/LLM-Learning-0/">LLM-Learning 记录</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/26/papers/">论文记录1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/08/hpc-python-note/">hpc-python-note</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/13/network-optimize/">模型部署 之network优化</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/25/wirte-note/">写作学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/17/Bugs-record/">日常记录</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/11/cpack-note-md/">如何打包你的c++程序 [DEBIAN]</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/29/quant-note-md/">量化笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/26/tools-collections/">Tools Collections</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/16/Hexo-collections/">Hexo 资料汇总</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/">Code</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Info/">Info</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Papers/">Papers</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/" rel="tag">3D</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NeRF/" rel="tag">NeRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/papers/" rel="tag">papers</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/" rel="tag">模型量化</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 lichar<br>
+      
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<div id="scroll2top" style="position:fixed;bottom:150px;right:50px;cursor: pointer;Z-index:9999">
+<a title="返回顶部" href="#"><img src="/scroll2top/scrollup.png"/></a>
+</div>
+<script src="/scroll2top/scroll2top.js"></script>
+
+
+
+  </div>
+</body>
+</html>

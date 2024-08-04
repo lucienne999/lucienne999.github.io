@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Shell 初级笔记 | 小圆的角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="教程来源：shell tutorial shell 可视为 linux 命令的脚本文件，对于一些复杂的处理当然还是 选择 c++ &#x2F; c 或者其他语言会更方便。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell 初级笔记">
+<meta property="og:url" content="http://licharyuan.github.io/2023/02/15/Shell-note/index.html">
+<meta property="og:site_name" content="小圆的角落">
+<meta property="og:description" content="教程来源：shell tutorial shell 可视为 linux 命令的脚本文件，对于一些复杂的处理当然还是 选择 c++ &#x2F; c 或者其他语言会更方便。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-02-15T05:21:11.000Z">
+<meta property="article:modified_time" content="2024-07-20T06:38:28.140Z">
+<meta property="article:author" content="lichar">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Ubuntu:400,700,400italic" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="小圆的角落" type="application/atom+xml">
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小圆的角落</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">好乐无荒 良士休休</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <a id="nav-github-link" class="nav-icon" href="https://github.com/LicharYuan" target="_blank"></a>
+        
+        
+        
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://licharyuan.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Shell-note" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/02/15/Shell-note/" class="article-date">
+  <time datetime="2023-02-15T05:21:11.000Z" itemprop="datePublished">2023-02-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Code/">Code</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+      
+        <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      Shell 初级笔记
+    </h1>
+  
+
+        </header>
+        
+          <div class="article-entry" itemprop="articleBody">
+            
+                      <!-- 
+    <div id="toc">
+        <strong class="sidebar-title"></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">作业 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">常用脚本收集 🔗</span></a></li></ol>
+    </div>
+     -->
+                      <p>教程来源：<br><a target="_blank" rel="noopener" href="https://github.com/jaywcjlove/shell-tutorial">shell tutorial</a></p>
+<p>shell 可视为 linux 命令的脚本文件，对于一些复杂的处理当然还是 选择 c++ &#x2F; c 或者其他语言会更方便。</p>
+<span id="more"></span>
+
+<h2><span id="作业">作业</span><a href="#作业" class="header-anchor"> 🔗</a></h2><blockquote>
+<p>使用 bash 写一个linux 的 IO 测试脚本，并附上说明。</p>
+</blockquote>
+<p>记录写这个作业遇到的一些问题：</p>
+<ol>
+<li>[  ] 左右需要空格隔开 </li>
+<li>为了防止字符串为空的情况 最好使用 加上不影响结果的占位符防止意外</li>
+<li>cd 这个指令 并不会在命令行切换路径</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 请编写一个 shell 的使用说明</span></span><br><span class="line"><span class="comment"># 并完善相关的代码 功能可以自定义</span></span><br><span class="line"><span class="comment"># ./xx.sh -a -b</span></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"></span><br><span class="line">prog=<span class="variable">$0</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">usage</span></span>() &#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Usage: <span class="variable">$prog</span> [-u] [-d directory]&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果没有输入 则 打印 usage</span></span><br><span class="line">[ -z <span class="variable">$1</span> ] &amp;&amp; &#123; usage; &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 getopts 来解析输入变量</span></span><br><span class="line"><span class="keyword">while</span> <span class="built_in">getopts</span> :u:d: opt; <span class="keyword">do</span> </span><br><span class="line">    <span class="keyword">case</span> <span class="variable">$opt</span> <span class="keyword">in</span></span><br><span class="line">        u) mode=<span class="variable">$OPTARG</span> ;;</span><br><span class="line">        d) <span class="built_in">dir</span>=<span class="variable">$OPTARG</span> ;;</span><br><span class="line">        ?)  <span class="built_in">echo</span> <span class="string">&quot;-<span class="variable">$OPTARG</span> is not an option&quot;</span></span><br><span class="line">            <span class="built_in">exit</span> 2 ;;</span><br><span class="line">        :)  <span class="comment"># 没有为需要参数的选项指定参数</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;This option -<span class="variable">$OPTARG</span> requires an argument.&quot;</span></span><br><span class="line">            <span class="built_in">exit</span> 1 ;;</span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 另一种方式使用 shift 来解析</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span> </span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;<span class="variable">$1</span>&quot;</span> <span class="keyword">in</span> </span><br><span class="line">        -y | --yaml) yaml=<span class="variable">$2</span>; <span class="built_in">shift</span> 2;;</span><br><span class="line">        --) <span class="built_in">shift</span>; <span class="built_in">break</span> ;;</span><br><span class="line">        *) <span class="built_in">break</span>;;</span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$mode</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;x<span class="variable">$mode</span>&quot;</span> = <span class="string">&quot;x1&quot;</span> ];</span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;use ls for func&quot;</span>;</span><br><span class="line">    func=<span class="built_in">ls</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;x<span class="variable">$mode</span>&quot;</span> = <span class="string">&quot;x2&quot;</span> ];</span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;use cd for func&quot;</span>;</span><br><span class="line">    func=<span class="built_in">cd</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$dir</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Mode func = <span class="variable">$func</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Dst directory = <span class="variable">$dir</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;run &gt;&gt; <span class="variable">$func</span> <span class="variable">$dir</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$func</span> <span class="variable">$dir</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2><span id="常用脚本收集">常用脚本收集</span><a href="#常用脚本收集" class="header-anchor"> 🔗</a></h2><ol>
+<li>读取当前目录的 directory &#x2F; file</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">find . -maxdepth 1 -mindepth 1 -<span class="built_in">type</span> d | <span class="keyword">while</span> <span class="built_in">read</span> <span class="built_in">dir</span>; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$dir</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># 读取文件把 -type 改成 f 即可。使用 man find 查看更多</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用xargs</li>
+</ol>
+<p>xargs 加上 <code>|</code> 方便做各种并行，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -d */ | xargs -I &#123;&#125; sh -c <span class="string">&#x27;cd &#123;&#125; &amp;&amp; command1 &amp;&amp; command2 &amp;&amp; command3&#x27;</span></span><br><span class="line"></span><br><span class="line">-P:  to specify the maximum number of processes to run <span class="keyword">in</span> parallel</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+                        
+          </div>
+          <footer class="article-footer">
+            <a data-url="http://licharyuan.github.io/2023/02/15/Shell-note/" data-id="clytrlz1e0009yvl1220k5e95" class="article-share-link">Share</a>
+            
+                
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
+
+          </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/03/03/NeRF-survey/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          NeRF Survey
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+      
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/04/LLM-Learning-0/">LLM-Learning 记录</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/26/papers/">论文记录1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/08/hpc-python-note/">hpc-python-note</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/13/network-optimize/">模型部署 之network优化</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/25/wirte-note/">写作学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/17/Bugs-record/">日常记录</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/11/cpack-note-md/">如何打包你的c++程序 [DEBIAN]</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/29/quant-note-md/">量化笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/26/tools-collections/">Tools Collections</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/16/Hexo-collections/">Hexo 资料汇总</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/">Code</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Info/">Info</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Papers/">Papers</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/" rel="tag">3D</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NeRF/" rel="tag">NeRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/papers/" rel="tag">papers</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/" rel="tag">模型量化</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 lichar<br>
+      
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<div id="scroll2top" style="position:fixed;bottom:150px;right:50px;cursor: pointer;Z-index:9999">
+<a title="返回顶部" href="#"><img src="/scroll2top/scrollup.png"/></a>
+</div>
+<script src="/scroll2top/scroll2top.js"></script>
+
+
+
+  </div>
+</body>
+</html>
