@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>论文记录1 | 小圆的角落</title>
+  <title>WIP 论文记录 | 小圆的角落</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Depth Anything 🔗 https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2401.10891  深度估计的 scaling-up 的探索：设计了新的优化目标。（虽然原文提到加入了新的监督方式，但本质还是优化方式的一种  affine-invariant loss: 仿射不变损失, followed from MiDaS  深度值首先会通过 d &#x3D; 1&#x2F;t 被转换到视差空">
+  <meta name="description" content="Depth Anything      Depth Anything 🔗 https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2401.10891  深度估计的 scaling-up 的探索：设计了新的优化目标。（虽然原文提到加入了新的监督方式，但本质还是优化方式的一种   affine-invariant loss: 仿射不变损失, followed from MiDaS  深度值首先会">
 <meta property="og:type" content="article">
-<meta property="og:title" content="论文记录1">
+<meta property="og:title" content="WIP 论文记录">
 <meta property="og:url" content="http://licharyuan.github.io/2024/07/26/papers/index.html">
 <meta property="og:site_name" content="小圆的角落">
-<meta property="og:description" content="Depth Anything 🔗 https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2401.10891  深度估计的 scaling-up 的探索：设计了新的优化目标。（虽然原文提到加入了新的监督方式，但本质还是优化方式的一种  affine-invariant loss: 仿射不变损失, followed from MiDaS  深度值首先会通过 d &#x3D; 1&#x2F;t 被转换到视差空">
+<meta property="og:description" content="Depth Anything      Depth Anything 🔗 https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2401.10891  深度估计的 scaling-up 的探索：设计了新的优化目标。（虽然原文提到加入了新的监督方式，但本质还是优化方式的一种   affine-invariant loss: 仿射不变损失, followed from MiDaS  深度值首先会">
 <meta property="og:locale">
 <meta property="og:image" content="http://licharyuan.github.io/papers-md/depthany.0.png">
+<meta property="og:image" content="http://licharyuan.github.io/papers-md/scale_data.png">
 <meta property="article:published_time" content="2024-07-25T16:43:02.000Z">
-<meta property="article:modified_time" content="2024-08-01T08:23:19.976Z">
+<meta property="article:modified_time" content="2024-09-03T06:21:17.958Z">
 <meta property="article:author" content="lichar">
 <meta property="article:tag" content="papers">
 <meta name="twitter:card" content="summary">
@@ -88,7 +89,7 @@
           
   
     <h1 class="article-title" itemprop="name">
-      论文记录1
+      WIP 论文记录
     </h1>
   
 
@@ -99,26 +100,45 @@
                       <!-- 
     <div id="toc">
         <strong class="sidebar-title"></strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Depth Anything 🔗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">参考 🔗</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Depth Anything 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text"> 🔗</span></a></li></ol>
     </div>
      -->
-                      <h2><span id="depth-anything">Depth Anything</span><a href="#depth-anything" class="header-anchor"> 🔗</a></h2><ul>
+                      <span id="more"></span>
+
+<div class="toc">
+
+<!-- toc -->
+
+<ul>
+<li><a href="#depth-anything">Depth Anything</a></li>
+</ul>
+<!-- tocstop -->
+
+</div>
+
+<h2><span id="depth-anything">Depth Anything</span><a href="#depth-anything" class="header-anchor"> 🔗</a></h2><ul>
 <li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2401.10891">https://arxiv.org/pdf/2401.10891</a></li>
 </ul>
 <p>深度估计的 scaling-up 的探索：设计了新的优化目标。（虽然原文提到加入了新的监督方式，但本质还是优化方式的一种</p>
+<p><img src="/./papers-md/depthany.0.png" alt="DepthAnything Framework, pic from https://blogs.torus.ai/depth-anything/"></p>
 <ol>
 <li>affine-invariant loss: 仿射不变损失, followed from MiDaS</li>
 </ol>
 <p>深度值首先会通过 d &#x3D; 1&#x2F;t 被转换到视差空间（disparity space）中，然后再把每张深度映射图归一化到 0~1 范围内, 见 eq.1 </p>
 <ol start="2">
-<li></li>
+<li>充分利用其他数据集的知识, 使用了 teacher 模型标注这些没有标注的数据；</li>
 </ol>
-<p><img src="/./papers-md/depthany.0.png" alt="DepthAnything Framework, pic from https://blogs.torus.ai/depth-anything/"></p>
-<h3><span id="参考">参考</span><a href="#参考" class="header-anchor"> 🔗</a></h3><ol>
+<p><img src="/./papers-md/scale_data.png" alt="DepthAnythong Scaling-up"></p>
+<ol start="3">
+<li>使用了辅助语义 loss, 无监督模型对语义的能力也在逐渐发展；使用 dinov2 来对齐语义特征；</li>
+</ol>
+<p>其他参考：</p>
+<ol>
 <li>MiDaS: <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1907.01341">https://arxiv.org/pdf/1907.01341</a> </li>
 <li><a target="_blank" rel="noopener" href="https://blogs.torus.ai/depth-anything/">https://blogs.torus.ai/depth-anything/</a></li>
 </ol>
-
+<p>后续的 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2406.09414">v2</a> 在此基础上：1）使用了合成的图像来替换标签图片 2）用了更大的teacher 模型 3）更大规模的未标注数据； </p>
+<h2><span id></span><a href="#" class="header-anchor"> 🔗</a></h2>
                         
           </div>
           <footer class="article-footer">
@@ -137,7 +157,7 @@
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          LLM-Learning 记录
+          WIP LLM-Learning 记录
         
       </div>
     </a>
@@ -164,11 +184,11 @@
       <ul>
         
           <li>
-            <a href="/2024/08/04/LLM-Learning-0/">LLM-Learning 记录</a>
+            <a href="/2024/08/04/LLM-Learning-0/">WIP LLM-Learning 记录</a>
           </li>
         
           <li>
-            <a href="/2024/07/26/papers/">论文记录1</a>
+            <a href="/2024/07/26/papers/">WIP 论文记录</a>
           </li>
         
           <li>
