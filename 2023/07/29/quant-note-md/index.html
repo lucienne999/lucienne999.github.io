@@ -8,32 +8,32 @@
   <meta name="description" content="本文介绍量化的相关的知识，主要是针对 pytorch_quantization 以及 量化白皮书 的介绍。并涉及一些当前的量化进展。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="量化笔记">
-<meta property="og:url" content="http://licharyuan.github.io/2023/07/29/quant-note-md/index.html">
+<meta property="og:url" content="http://lucienne999.github.io/2023/07/29/quant-note-md/index.html">
 <meta property="og:site_name" content="小圆的角落">
 <meta property="og:description" content="本文介绍量化的相关的知识，主要是针对 pytorch_quantization 以及 量化白皮书 的介绍。并涉及一些当前的量化进展。">
 <meta property="og:locale">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/image.png">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/res.quant.png">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/res.quant1.png">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/res.quant2.png">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/res.quant3.png">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/llm.intro.jpg">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/per_token.png">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/llm.int.jpg">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/sm.activation.jpg">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/smoothquant.comp.png">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/awq.fig1.jpg">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/qat_clamp.png.png">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/pact.clip.png">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/pact.clip1.png">
-<meta property="og:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/qat.3.png">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/image.png">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/res.quant.png">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/res.quant1.png">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/res.quant2.png">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/res.quant3.png">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/llm.intro.jpg">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/per_token.png">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/llm.int.jpg">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/sm.activation.jpg">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/smoothquant.comp.png">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/awq.fig1.jpg">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/qat_clamp.png.png">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/pact.clip.png">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/pact.clip1.png">
+<meta property="og:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/qat.3.png">
 <meta property="article:published_time" content="2023-07-29T09:09:03.000Z">
 <meta property="article:modified_time" content="2024-07-20T06:38:28.141Z">
-<meta property="article:author" content="lichar">
+<meta property="article:author" content="lucienne">
 <meta property="article:tag" content="note">
 <meta property="article:tag" content="模型量化">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://licharyuan.github.io/2023/07/29/quant-note-md/image.png">
+<meta name="twitter:image" content="http://lucienne999.github.io/2023/07/29/quant-note-md/image.png">
   
   
     <link href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Ubuntu:400,700,400italic" rel="stylesheet" type="text/css">
@@ -185,7 +185,7 @@ mjx-container[display="true"] + br {
         
       </nav>
       <nav id="sub-nav">
-        <a id="nav-github-link" class="nav-icon" href="https://github.com/LicharYuan" target="_blank"></a>
+        <a id="nav-github-link" class="nav-icon" href="https://github.com/lucienne999" target="_blank"></a>
         
         
         
@@ -193,7 +193,7 @@ mjx-container[display="true"] + br {
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://licharyuan.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lucienne999.github.io"></form>
       </div>
     </div>
   </div>
@@ -473,7 +473,7 @@ mjx-container[display="true"] + br {
                         
           </div>
           <footer class="article-footer">
-            <a data-url="http://licharyuan.github.io/2023/07/29/quant-note-md/" data-id="clytrlz1g000myvl17qf1a0z0" class="article-share-link">Share</a>
+            <a data-url="http://lucienne999.github.io/2023/07/29/quant-note-md/" data-id="clytrlz1g000myvl17qf1a0z0" class="article-share-link">Share</a>
             
                 
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/" rel="tag">模型量化</a></li></ul>
@@ -515,6 +515,14 @@ mjx-container[display="true"] + br {
       <ul>
         
           <li>
+            <a href="/2024/11/26/review/">Review</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/04/cpp-note/">cpp-note</a>
+          </li>
+        
+          <li>
             <a href="/2024/08/04/LLM-Learning-0/">WIP LLM-Learning 记录</a>
           </li>
         
@@ -546,14 +554,6 @@ mjx-container[display="true"] + br {
             <a href="/2023/07/29/quant-note-md/">量化笔记</a>
           </li>
         
-          <li>
-            <a href="/2023/07/26/tools-collections/">Tools Collections</a>
-          </li>
-        
-          <li>
-            <a href="/2023/04/16/Hexo-collections/">Hexo 资料汇总</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -572,7 +572,7 @@ mjx-container[display="true"] + br {
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/" rel="tag">3D</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NeRF/" rel="tag">NeRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/papers/" rel="tag">papers</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/" rel="tag">模型量化</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/" rel="tag">3D</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NeRF/" rel="tag">NeRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cpp/" rel="tag">cpp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/detect/" rel="tag">detect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/papers/" rel="tag">papers</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/" rel="tag">模型量化</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -581,7 +581,7 @@ mjx-container[display="true"] + br {
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -593,7 +593,7 @@ mjx-container[display="true"] + br {
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2024 lichar<br>
+      &copy; 2024 lucienne<br>
       
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>cpp-note | 小圆的角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言: 好记性不如烂键盘, 记录一些 cpp 的知识点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cpp-note">
+<meta property="og:url" content="http://lucienne999.github.io/2024/09/04/cpp-note/index.html">
+<meta property="og:site_name" content="小圆的角落">
+<meta property="og:description" content="前言: 好记性不如烂键盘, 记录一些 cpp 的知识点">
+<meta property="og:locale">
+<meta property="og:image" content="http://lucienne999.github.io/2024/09/04/cpp-note/image-1.png">
+<meta property="article:published_time" content="2024-09-04T03:04:44.000Z">
+<meta property="article:modified_time" content="2024-11-05T07:56:30.620Z">
+<meta property="article:author" content="lucienne">
+<meta property="article:tag" content="cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lucienne999.github.io/2024/09/04/cpp-note/image-1.png">
+  
+  
+    <link href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Ubuntu:400,700,400italic" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="小圆的角落" type="application/atom+xml">
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小圆的角落</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">好乐无荒 良士休休</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <a id="nav-github-link" class="nav-icon" href="https://github.com/lucienne999" target="_blank"></a>
+        
+        
+        
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lucienne999.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cpp-note" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2024/09/04/cpp-note/" class="article-date">
+  <time datetime="2024-09-04T03:04:44.000Z" itemprop="datePublished">2024-09-04</time>
+</a>
+      
+  </div>
+  <div class="article-inner">
+    
+      
+        <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      cpp-note
+    </h1>
+  
+
+        </header>
+        
+          <div class="article-entry" itemprop="articleBody">
+            
+                      <!-- 
+    <div id="toc">
+        <strong class="sidebar-title"></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">concepts 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">ptr 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">设计模式 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Debug 🔗</span></a></li></ol>
+    </div>
+     -->
+                      <p>前言: 好记性不如烂键盘, 记录一些 cpp 的知识点</p>
+<span id="more"></span>
+
+<div class="toc">
+
+<!-- toc -->
+
+<ul>
+<li><a href="#concepts">concepts</a></li>
+<li><a href="#ptr">ptr</a></li>
+<li><a href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F">设计模式</a></li>
+<li><a href="#debug">Debug</a></li>
+</ul>
+<!-- tocstop -->
+
+</div>
+
+<h2><span id="concepts">concepts</span><a href="#concepts" class="header-anchor"> 🔗</a></h2><ol>
+<li>原子操作</li>
+</ol>
+<br>
+
+<ul>
+<li>某个操作要么完全执行，要么完全不执行；确保在并发环境中，多个线程或进程之间不会互相干扰；</li>
+<li>执行原子操作，其他线程无法看到操作进行的状态，只能看到操作前后的数值情况</li>
+<li>原子操作会比 mutex 的效率更高，减少了上下文的切换和锁的开销；但该操作需要硬件支持（现代硬件几乎都支持）；</li>
+<li>在 cpp 中可以使用 <code>&lt;atomic&gt;</code> 来实现</li>
+</ul>
+<ol start="2">
+<li>静态链接库和动态链接库</li>
+</ol>
+<br>
+
+<p><a target="_blank" rel="noopener" href="https://domiyanyue.medium.com/c-development-tutorial-4-static-and-dynamic-libraries-7b537656163e">相关链接1</a></p>
+<ul>
+<li>最直观的结果上看，动态是 .so 竟然是 .a; </li>
+<li>打包上，静态会连代码一起打包，但是动态只会打包头文件中声明的symbol，因此动态库体积小</li>
+<li>运行上，动态库只加载一次，依赖它的程序之间会共享了；静态库则会加载多次；前者在重复加载时可以提高内存利用率</li>
+<li>使用上，静态库在代码更新后，与之相关的都需要重新编译，比较痛苦</li>
+<li>当你的 project 很小或者对环境依赖很大时，可以考虑静态库；否则推荐动态库，使用动态库时注意目录导入问题；</li>
+</ul>
+<p><img src="/2024/09/04/cpp-note/image-1.png" alt="静态 vs 动态"></p>
+<ol start="3">
+<li>namespace</li>
+</ol>
+<ul>
+<li>:: 放在前面表示是全局命名空间</li>
+</ul>
+<ol start="4">
+<li>拷贝构造函数和拷贝赋值运算符<br>【TODO】</li>
+</ol>
+<h2><span id="ptr">ptr</span><a href="#ptr" class="header-anchor"> 🔗</a></h2><ol>
+<li><code>std::unique_ptr</code> v.s <code>std::shared_ptr</code></li>
+</ol>
+<br>
+
+
+<ul>
+<li>最大的差别是 ownership:</li>
+</ul>
+<br>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="comment">// unique_ptr </span></span><br><span class="line">std::unique_ptr&lt;MyClass&gt; ptr1 = std::<span class="built_in">make_unique</span>&lt;MyClass&gt;();</span><br><span class="line">std::unique_ptr&lt;MyClass&gt; ptr2 = std::<span class="built_in">move</span>(ptr1); <span class="comment">// Ownership transferred</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// shared_ptr</span></span><br><span class="line">std::shared_ptr&lt;MyClass&gt; ptr1 = std::<span class="built_in">make_shared</span>&lt;MyClass&gt;();</span><br><span class="line">std::shared_ptr&lt;MyClass&gt; ptr2 = ptr1; <span class="comment">// Both ptr1 and ptr2 share ownership</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<ul>
+<li>其次是实现上的差别，shared_ptr 为了实现共享，内部维护引用计数；并且这个计数是原子操作，因此线程安全。虽然计数器线程安全，但是如果多线程同时读写一个对象，则需要额外的同步机制来防止数据竞争</li>
+</ul>
+<h2><span id="设计模式">设计模式</span><a href="#设计模式" class="header-anchor"> 🔗</a></h2><ol>
+<li>nested class</li>
+</ol>
+<p>[也没很懂这玩意]</p>
+<p>什么时候在类内嵌套一个类使用？</p>
+<ul>
+<li>需要隐藏一些实现细节；比如结合 pImlp-Pattern，内部实现 pImlp；</li>
+</ul>
+<h2><span id="debug">Debug</span><a href="#debug" class="header-anchor"> 🔗</a></h2><ol>
+<li>内存泄漏</li>
+</ol>
+<p>在编译加上内存的确认:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set(CMAKE_CXX_FLAGS &quot;$&#123;CMAKE_CXX_FLAGS&#125; -g -fsanitize=address -fno-omit-frame-pointer&quot;)</span><br></pre></td></tr></table></figure>
+
+                        
+          </div>
+          <footer class="article-footer">
+            <a data-url="http://lucienne999.github.io/2024/09/04/cpp-note/" data-id="cm0yov36400002rl18z1k39to" class="article-share-link">Share</a>
+            
+                
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/" rel="tag">cpp</a></li></ul>
+
+          </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/11/26/review/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Review
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/08/04/LLM-Learning-0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">WIP LLM-Learning 记录</div>
+    </a>
+  
+</nav>
+
+      
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/26/review/">Review</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/04/cpp-note/">cpp-note</a>
+          </li>
+        
+          <li>
+            <a href="/2024/08/04/LLM-Learning-0/">WIP LLM-Learning 记录</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/26/papers/">WIP 论文记录</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/08/hpc-python-note/">hpc-python-note</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/13/network-optimize/">模型部署 之network优化</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/25/wirte-note/">写作学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/17/Bugs-record/">日常记录</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/11/cpack-note-md/">如何打包你的c++程序 [DEBIAN]</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/29/quant-note-md/">量化笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/">Code</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Info/">Info</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Papers/">Papers</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/" rel="tag">3D</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NeRF/" rel="tag">NeRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cpp/" rel="tag">cpp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/detect/" rel="tag">detect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/papers/" rel="tag">papers</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/" rel="tag">模型量化</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 lucienne<br>
+      
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<div id="scroll2top" style="position:fixed;bottom:150px;right:50px;cursor: pointer;Z-index:9999">
+<a title="返回顶部" href="#"><img src="/scroll2top/scrollup.png"/></a>
+</div>
+<script src="/scroll2top/scroll2top.js"></script>
+
+
+
+  </div>
+</body>
+</html>

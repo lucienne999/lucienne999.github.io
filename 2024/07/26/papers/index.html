@@ -5,21 +5,31 @@
   
   <title>WIP 论文记录 | 小圆的角落</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Depth Anything      Depth Anything 🔗 https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2401.10891  深度估计的 scaling-up 的探索：设计了新的优化目标。（虽然原文提到加入了新的监督方式，但本质还是优化方式的一种   affine-invariant loss: 仿射不变损失, followed from MiDaS  深度值首先会">
+  <meta name="description" content="前言：多看论文，少玩手机。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WIP 论文记录">
-<meta property="og:url" content="http://licharyuan.github.io/2024/07/26/papers/index.html">
+<meta property="og:url" content="http://lucienne999.github.io/2024/07/26/papers/index.html">
 <meta property="og:site_name" content="小圆的角落">
-<meta property="og:description" content="Depth Anything      Depth Anything 🔗 https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2401.10891  深度估计的 scaling-up 的探索：设计了新的优化目标。（虽然原文提到加入了新的监督方式，但本质还是优化方式的一种   affine-invariant loss: 仿射不变损失, followed from MiDaS  深度值首先会">
+<meta property="og:description" content="前言：多看论文，少玩手机。">
 <meta property="og:locale">
-<meta property="og:image" content="http://licharyuan.github.io/papers-md/depthany.0.png">
-<meta property="og:image" content="http://licharyuan.github.io/papers-md/scale_data.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/depthany.0.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/scale_data.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/s3gauss-1.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/s3gauss-2.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/lgm.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/unique3d.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/lrm.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/sf3d-1.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/lion-1.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/lion-2.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/poa-1.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/poa-2.png">
 <meta property="article:published_time" content="2024-07-25T16:43:02.000Z">
-<meta property="article:modified_time" content="2024-09-03T06:21:17.958Z">
-<meta property="article:author" content="lichar">
+<meta property="article:modified_time" content="2024-10-15T03:15:32.979Z">
+<meta property="article:author" content="lucienne">
 <meta property="article:tag" content="papers">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://licharyuan.github.io/papers-md/depthany.0.png">
+<meta name="twitter:image" content="http://lucienne999.github.io/2024/07/26/papers/depthany.0.png">
   
   
     <link href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Ubuntu:400,700,400italic" rel="stylesheet" type="text/css">
@@ -59,7 +69,7 @@
         
       </nav>
       <nav id="sub-nav">
-        <a id="nav-github-link" class="nav-icon" href="https://github.com/LicharYuan" target="_blank"></a>
+        <a id="nav-github-link" class="nav-icon" href="https://github.com/lucienne999" target="_blank"></a>
         
         
         
@@ -67,7 +77,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://licharyuan.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lucienne999.github.io"></form>
       </div>
     </div>
   </div>
@@ -100,10 +110,11 @@
                       <!-- 
     <div id="toc">
         <strong class="sidebar-title"></strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Depth Anything 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text"> 🔗</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Depth Anything 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Segment Anything 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">S^3Gaussian: Self-Supervised Street Gaussians for Autonomous Driving 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">SF3D: Stable Fast 3D Mesh Reconstruction with UV-unwrapping and Illumination Disentanglement 🔗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Background 🔗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Takeaways 🔗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Performance 🔗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">LION: Linear Group RNN for 3D Object Detection in Point Clouds 🔗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Takeaways 🔗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Performance 🔗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">POA: Pre-training Once for Models of All Sizes 🔗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Takeaways 🔗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">结果 🔗</span></a></li></ol></li></ol>
     </div>
      -->
-                      <span id="more"></span>
+                      <p>前言：多看论文，少玩手机。</p>
+<span id="more"></span>
 
 <div class="toc">
 
@@ -111,6 +122,24 @@
 
 <ul>
 <li><a href="#depth-anything">Depth Anything</a></li>
+<li><a href="#segment-anything">Segment Anything</a></li>
+<li><a href="#s3gaussian-self-supervised-street-gaussians-for-autonomous-driving">S^3Gaussian: Self-Supervised Street Gaussians for Autonomous Driving</a></li>
+<li><a href="#sf3d-stable-fast-3d-mesh-reconstruction-with-uv-unwrapping-and-illumination-disentanglement">SF3D: Stable Fast 3D Mesh Reconstruction with UV-unwrapping and Illumination Disentanglement</a><ul>
+<li><a href="#background">Background</a></li>
+<li><a href="#takeaways">Takeaways</a></li>
+<li><a href="#performance">Performance</a></li>
+</ul>
+</li>
+<li><a href="#lion-linear-group-rnn-for-3d-object-detection-in-point-clouds">LION: Linear Group RNN for 3D Object Detection in Point Clouds</a><ul>
+<li><a href="#takeaways-1">Takeaways</a></li>
+<li><a href="#performance-1">Performance</a></li>
+</ul>
+</li>
+<li><a href="#poa-pre-training-once-for-models-of-all-sizes">POA: Pre-training Once for Models of All Sizes</a><ul>
+<li><a href="#takeaways-2">Takeaways</a></li>
+<li><a href="#%E7%BB%93%E6%9E%9C">结果</a></li>
+</ul>
+</li>
 </ul>
 <!-- tocstop -->
 
@@ -119,8 +148,8 @@
 <h2><span id="depth-anything">Depth Anything</span><a href="#depth-anything" class="header-anchor"> 🔗</a></h2><ul>
 <li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2401.10891">https://arxiv.org/pdf/2401.10891</a></li>
 </ul>
-<p>深度估计的 scaling-up 的探索：设计了新的优化目标。（虽然原文提到加入了新的监督方式，但本质还是优化方式的一种</p>
-<p><img src="/./papers-md/depthany.0.png" alt="DepthAnything Framework, pic from https://blogs.torus.ai/depth-anything/"></p>
+<p>深度估计的 scaling-up 的探索：设计了新的优化目标（loss + better teacher）</p>
+<p><img src="/2024/07/26/papers/depthany.0.png" alt="DepthAnything Framework, pic from https://blogs.torus.ai/depth-anything/"></p>
 <ol>
 <li>affine-invariant loss: 仿射不变损失, followed from MiDaS</li>
 </ol>
@@ -128,7 +157,7 @@
 <ol start="2">
 <li>充分利用其他数据集的知识, 使用了 teacher 模型标注这些没有标注的数据；</li>
 </ol>
-<p><img src="/./papers-md/scale_data.png" alt="DepthAnythong Scaling-up"></p>
+<p><img src="/2024/07/26/papers/scale_data.png" alt="DepthAnythong Scaling-up"></p>
 <ol start="3">
 <li>使用了辅助语义 loss, 无监督模型对语义的能力也在逐渐发展；使用 dinov2 来对齐语义特征；</li>
 </ol>
@@ -138,11 +167,135 @@
 <li><a target="_blank" rel="noopener" href="https://blogs.torus.ai/depth-anything/">https://blogs.torus.ai/depth-anything/</a></li>
 </ol>
 <p>后续的 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2406.09414">v2</a> 在此基础上：1）使用了合成的图像来替换标签图片 2）用了更大的teacher 模型 3）更大规模的未标注数据； </p>
-<h2><span id></span><a href="#" class="header-anchor"> 🔗</a></h2>
+<h2><span id="segment-anything">Segment Anything</span><a href="#segment-anything" class="header-anchor"> 🔗</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/facebookresearch/segment-anything">https://github.com/facebookresearch/segment-anything</a></li>
+</ul>
+<p>这篇工作思路非常清晰，很有借鉴意义；作者先说如果我们要做一个分割的基础大模型，问题可以拆解成三个部分：</p>
+<ol>
+<li><p>任务，怎么样设计让模型具有通用性，参考 NLP 利用已有数据（也就是 Prompt）预测下一个 token，在 cv 上也可以利用已有的 Prompt 来得到需要的结果。</p>
+</li>
+<li><p>模型，在 1 上设计模型，模型需要满足可以接收灵活的 Prompt，给一些简单的点，框或者多边形都可以（之前的工作太限制用户的输入而难用），可以交互使用主要也是为下一步的数据工程。</p>
+</li>
+<li><p>数据，SAM 依赖大数据的基础，为了更高效获取更大的 segment 模型，meta 提供了一个更高效的数据制作管道；分为三个阶段，手段阶段，半自动化阶段，全自动化阶段；手动阶段，基于 SAM（大概是通过已有数据训练的版本）然后给出预标注，让标注人员实现精细标注；</p>
+</li>
+</ol>
+<h2><span id="s3gaussian-self-supervised-street-gaussians-for-autonomous-driving">S^3Gaussian: Self-Supervised Street Gaussians for Autonomous Driving</span><a href="#s3gaussian-self-supervised-street-gaussians-for-autonomous-driving" class="header-anchor"> 🔗</a></h2><p>粗略扫了一下</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2405.20323">https://arxiv.org/pdf/2405.20323</a></li>
+</ul>
+<p>为了解决开放场景重建，动态物体难重建的问题；通常对动态物体先检测，再重建；为了减少检测的成本，本文使用自监督的方式来区分；有几个要点：</p>
+<ol>
+<li><p>3d 高斯球的初始化不来自多视角几何的 sfm，而是点云的输入，颜色随机输入；（我觉得这里动态物体 sfm 得到的也不好</p>
+</li>
+<li><p>在原本 3dgs 的基础上，新增了空间的维度</p>
+</li>
+</ol>
+<p><img src="/2024/07/26/papers/s3gauss-1.png" alt="s^3 guassian framework"></p>
+<p><img src="/2024/07/26/papers/s3gauss-2.png" alt="s^3 guassian hexplane"></p>
+<h2><span id="sf3d-stable-fast-3d-mesh-reconstruction-with-uv-unwrapping-and-illumination-disentanglement">SF3D: Stable Fast 3D Mesh Reconstruction with UV-unwrapping and Illumination Disentanglement</span><a href="#sf3d-stable-fast-3d-mesh-reconstruction-with-uv-unwrapping-and-illumination-disentanglement" class="header-anchor"> 🔗</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2408.00653">https://arxiv.org/pdf/2408.00653</a></li>
+<li><a target="_blank" rel="noopener" href="https://stable-fast-3d.github.io/">https://stable-fast-3d.github.io/</a></li>
+</ul>
+<h3><span id="background">Background</span><a href="#background" class="header-anchor"> 🔗</a></h3><p>基于DNN的 单图 3d 重建可以分为两种解决方案：</p>
+<ol>
+<li>Two-stage：生成+重建；由单图得到多视角的图像后，再进行 3d 重建。</li>
+</ol>
+<ul>
+<li>相关工作：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.11328">zero123</a>，<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2402.05054">LGM</a>，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.20343">unique3D</a> </li>
+<li>生成用  multi-view diffusion，重建一般先得到粗的 mesh 再精调；重建这边的花样会多一些；<br>   LGM:</li>
+</ul>
+<p>   <img src="/2024/07/26/papers/lgm.png" alt="LGM 示意图"> </p>
+<p>   unique3d:</p>
+<p>   <img src="/2024/07/26/papers/unique3d.png" alt="unqiue 3d 示意图"></p>
+<ol start="2">
+<li>One-stage：单图直出；使用一张图得到隐式表示后 直接输出 mesh+新视角渲染（比较吃模型+数据</li>
+</ol>
+<ul>
+<li><p>相关工作：<a target="_blank" rel="noopener" href="https://yiconghong.me/LRM/">LRM</a> , <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2403.02151">TripoSR</a>，本文</p>
+</li>
+<li><p>很多方法都是沿着 LRM 发展起来的，通过大规模数据的训练，使用单张图片得到 3d 的表征<br>LRM有 500million 的参数量，使用数据集 objaverse + mvimagenet ，百万量级的训练数据, 输入图像用 512x512, render 使用 128x128；训练使用 128 * A100 * 3 days， 推理 A100 单张图需要 5s左右；</p>
+<p>结构上两个部分：</p>
+<ul>
+<li>image encoder: 2d image -&gt; 2d image features</li>
+<li>Image-to-triplane decoder:  2d image features + triplane position embeddings + cam features(learnable) -&gt; triplane tokens；<br>通过triplane tokens 然后得到 triplane representation ，全空间插值后。可以用体渲染得到不同视角的图像；</li>
+</ul>
+<p><img src="/2024/07/26/papers/lrm.png" alt="LRM framework"></p>
+</li>
+<li><p>two-stage 的性能明显高于 one-stage，但是速度上会慢得多；</p>
+</li>
+<li><p>本文属于 one-stage 的方法，基于 TripoSR 实现，没有比 TripoSR 更快；在略微增加一些时间的基础上，提升了重建的质量；</p>
+</li>
+</ul>
+<h3><span id="takeaways">Takeaways</span><a href="#takeaways" class="header-anchor"> 🔗</a></h3><p>相比 TripoSR，做了这些改进：</p>
+<p><img src="/2024/07/26/papers/sf3d-1.png" alt="SF3D 的改进"></p>
+<ul>
+<li><p>transformer 从 Dinov1 -&gt; Dinov2;  plane size 增加了从 64x64 -&gt; 384x384 </p>
+</li>
+<li><p>Materials net 来预测金属性以及粗糙度；</p>
+<ul>
+<li>这个网络使用训练数据中包含 PBR（Physically Based Rendering）材质属性的3D对象训练</li>
+<li>使用 frozen CLIP + 两个多层 MLP 分别预测</li>
+<li>SF3D 一开始使用直接回归，但是训练崩了，后面换成了预测 beta 分布的参数<br>（不知道为啥选择这个分布，可能统计了一下数据集？</li>
+</ul>
+</li>
+<li><p>光照模型</p>
+<ul>
+<li>2 cnn layers + max pool + 3 mlp layers 预测球面高斯的光照强度，而方向和锐度是固定的；</li>
+</ul>
+</li>
+<li><p>mesh 的生成从 Marching Cubes -&gt; DMTet      代码</p>
+</li>
+<li><p>uv 展开的优化 代码</p>
+<ul>
+<li>立方体投影，每个mesh 下的网格根据方向选择最适合的投影面</li>
+<li>检测和处理遮挡，避免了不同面共享相同UV坐标，（这也可能就是为啥之前的瓶子反面就没纹理的原因</li>
+<li>根据每三角形中心的接近程度来过滤掉一些三角形，（应该是因为 mesh 太粗糙了</li>
+<li>相交区域的细节处理，相对深度排序分别放置贴图；（保留应该有的细节</li>
+<li>使用卷积来避免 uv 贴图的接缝问题；（接缝问题一般出现在贴图的边缘处，可理解为边缘平滑</li>
+</ul>
+</li>
+<li><p>训练细节</p>
+<ul>
+<li>由于很多属性都被隐式编码，没有预训练会崩，所以先用 NeRF 做了 pretrain;<br>  tripoSR 没有预训练环节；</li>
+<li>光照网络在大 batch 下表现会更好；导致训练有几个阶段（显存不够只能分阶段）：<ul>
+<li>第一阶段：bs&#x3D;192，resolution&#x3D;128x128，10K iters</li>
+<li>第二阶段：bs&#x3D;128，resolution&#x3D;256x256, 20K iters</li>
+<li>第三阶段：bs&#x3D;96，resolution&#x3D;512x512, 80K iters</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3><span id="performance">Performance</span><a href="#performance" class="header-anchor"> 🔗</a></h3><p>可视化结果原文能找到比较多，细节上会好一些，但也不好太多；</p>
+<h2><span id="lion-linear-group-rnn-for-3d-object-detection-in-point-clouds">LION: Linear Group RNN for 3D Object Detection in Point Clouds</span><a href="#lion-linear-group-rnn-for-3d-object-detection-in-point-clouds" class="header-anchor"> 🔗</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2407.18232">https://arxiv.org/pdf/2407.18232</a></li>
+<li><a target="_blank" rel="noopener" href="https://happinesslz.github.io/projects/LION/">https://happinesslz.github.io/projects/LION/</a></li>
+</ul>
+<p>使用 Linear RNN 来实现对长时序的捕捉，来 fix transformer 因为计算量太大无法用上的问题；</p>
+<h3><span id="takeaways">Takeaways</span><a href="#takeaways" class="header-anchor"> 🔗</a></h3><ul>
+<li>面对 Linear RNN 提出了自己的网络结构；</li>
+<li>对于输入拉成一维可能会有信息丢失，提出了3d 空间描述符（使用了 3d-submainfold conv）；用于捕获3d 数据的空间信息；可以理解为，先做了一些特征加强，再让你丢失；；</li>
+<li>基于特征的体素生成策略，特征数值较大的 channel 会有更大概率出现物体，基于这个来找到表示前景点的 voxel，然后把这些体素的位置做 offset，特征设置为 0；在通过 Linear RNN的自回归特性，来产生新的体素特征；对应 voxel merging -&gt; LION -&gt; voxel expanding;</li>
+</ul>
+<p><img src="/2024/07/26/papers/lion-1.png" alt="Lion Framework"><br><img src="/2024/07/26/papers/lion-2.png" alt="Lion Detail"></p>
+<h3><span id="performance">Performance</span><a href="#performance" class="header-anchor"> 🔗</a></h3><p>在waymo，nuscenes，ArgoverseV2，ONCE 数据集上对比；<br>目前（2024.08） nuscenes的 lidar-only 排行榜第三：<a target="_blank" rel="noopener" href="https://www.nuscenes.org/object-detection?externalData=all&mapData=all&modalities=Lidar">https://www.nuscenes.org/object-detection?externalData=all&amp;mapData=all&amp;modalities=Lidar</a></p>
+<h2><span id="poa-pre-training-once-for-models-of-all-sizes">POA: Pre-training Once for Models of All Sizes</span><a href="#poa-pre-training-once-for-models-of-all-sizes" class="header-anchor"> 🔗</a></h2><p>粗略扫了一下</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2408.01031">https://arxiv.org/pdf/2408.01031</a></li>
+</ul>
+<p>背景：大模型通常很大，难以部署到边缘设备上，如何更好的把大模型学到的知识向不同size 的小模型传输；某种程度上，可以视为 NAS + self-supervise learning 的结合。</p>
+<p><img src="/2024/07/26/papers/poa-1.png" alt="poa 实现框架"></p>
+<h3><span id="takeaways">Takeaways</span><a href="#takeaways" class="header-anchor"> 🔗</a></h3><ol>
+<li>distillation 来自两个方面：固定大小的 student network 和 弹性的 student network 的知识都从teacher 模型学习，teacher 模型输入的视角不同；</li>
+<li>设计 ViT 的搜索结构</li>
+</ol>
+<p><img src="/2024/07/26/papers/poa-2.png" alt="alt text"></p>
+<h3><span id="结果">结果</span><a href="#结果" class="header-anchor"> 🔗</a></h3><p>论文实验结果很多，比较有用的是：可以从 ViT-L 中从抽取性能差不多，但是量级类似 ViT-B&#x2F;S 性能更好的模型；真的太像 once-for-all 了，但是实验结果比较多，在实现上也只用 teacher model 作为监督。</p>
+
                         
           </div>
           <footer class="article-footer">
-            <a data-url="http://licharyuan.github.io/2024/07/26/papers/" data-id="clzfmzgox0001gul1ag2w6ih5" class="article-share-link">Share</a>
+            <a data-url="http://lucienne999.github.io/2024/07/26/papers/" data-id="clzfmzgox0001gul1ag2w6ih5" class="article-share-link">Share</a>
             
                 
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/papers/" rel="tag">papers</a></li></ul>
@@ -184,6 +337,14 @@
       <ul>
         
           <li>
+            <a href="/2024/11/26/review/">Review</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/04/cpp-note/">cpp-note</a>
+          </li>
+        
+          <li>
             <a href="/2024/08/04/LLM-Learning-0/">WIP LLM-Learning 记录</a>
           </li>
         
@@ -215,14 +376,6 @@
             <a href="/2023/07/29/quant-note-md/">量化笔记</a>
           </li>
         
-          <li>
-            <a href="/2023/07/26/tools-collections/">Tools Collections</a>
-          </li>
-        
-          <li>
-            <a href="/2023/04/16/Hexo-collections/">Hexo 资料汇总</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -241,7 +394,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/" rel="tag">3D</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NeRF/" rel="tag">NeRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/papers/" rel="tag">papers</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/" rel="tag">模型量化</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/" rel="tag">3D</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NeRF/" rel="tag">NeRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cpp/" rel="tag">cpp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/detect/" rel="tag">detect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/papers/" rel="tag">papers</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/" rel="tag">模型量化</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -250,7 +403,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -262,7 +415,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2024 lichar<br>
+      &copy; 2024 lucienne<br>
       
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
