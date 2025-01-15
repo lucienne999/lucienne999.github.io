@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://lucienne999.github.io/2024/07/26/papers/</loc>
+    
+    <lastmod>2025-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://lucienne999.github.io/2024/09/04/cpp-note/</loc>
     
     <lastmod>2024-11-26</lastmod>
@@ -23,15 +32,6 @@
     <loc>http://lucienne999.github.io/2023/08/25/wirte-note/</loc>
     
     <lastmod>2024-11-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://lucienne999.github.io/2024/07/26/papers/</loc>
-    
-    <lastmod>2024-10-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -184,7 +184,7 @@
 
   <url>
     <loc>http://lucienne999.github.io/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -192,84 +192,84 @@
   
   <url>
     <loc>http://lucienne999.github.io/tags/note/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/tags/Hexo/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/tags/NeRF/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/tags/3D/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/tags/shell/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/tags/cmake/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/tags/tools/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/tags/papers/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/tags/LLM/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/tags/cpp/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/tags/detect/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -278,21 +278,21 @@
   
   <url>
     <loc>http://lucienne999.github.io/categories/Code/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/categories/Info/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lucienne999.github.io/categories/Papers/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

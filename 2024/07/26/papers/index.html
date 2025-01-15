@@ -24,8 +24,13 @@
 <meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/lion-2.png">
 <meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/poa-1.png">
 <meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/poa-2.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/slp_1.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/slp_2.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/slp_3.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/slp_4.png">
+<meta property="og:image" content="http://lucienne999.github.io/2024/07/26/papers/slp_5.png">
 <meta property="article:published_time" content="2024-07-25T16:43:02.000Z">
-<meta property="article:modified_time" content="2024-10-15T03:15:32.979Z">
+<meta property="article:modified_time" content="2025-01-15T03:14:19.428Z">
 <meta property="article:author" content="lucienne">
 <meta property="article:tag" content="papers">
 <meta name="twitter:card" content="summary">
@@ -110,7 +115,7 @@
                       <!-- 
     <div id="toc">
         <strong class="sidebar-title"></strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Depth Anything 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Segment Anything 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">S^3Gaussian: Self-Supervised Street Gaussians for Autonomous Driving 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">SF3D: Stable Fast 3D Mesh Reconstruction with UV-unwrapping and Illumination Disentanglement 🔗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Background 🔗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Takeaways 🔗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Performance 🔗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">LION: Linear Group RNN for 3D Object Detection in Point Clouds 🔗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Takeaways 🔗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Performance 🔗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">POA: Pre-training Once for Models of All Sizes 🔗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Takeaways 🔗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">结果 🔗</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Depth Anything 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Segment Anything 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">S^3Gaussian: Self-Supervised Street Gaussians for Autonomous Driving 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">SF3D: Stable Fast 3D Mesh Reconstruction with UV-unwrapping and Illumination Disentanglement 🔗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Background 🔗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Takeaways 🔗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Performance 🔗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">LION: Linear Group RNN for 3D Object Detection in Point Clouds 🔗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Takeaways 🔗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Performance 🔗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">POA: Pre-training Once for Models of All Sizes 🔗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">Takeaways 🔗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">结果 🔗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Scaling Laws for Precision 🔗</span></a></li></ol>
     </div>
      -->
                       <p>前言：多看论文，少玩手机。</p>
@@ -140,6 +145,7 @@
 <li><a href="#%E7%BB%93%E6%9E%9C">结果</a></li>
 </ul>
 </li>
+<li><a href="#scaling-laws-for-precision">Scaling Laws for Precision</a></li>
 </ul>
 <!-- tocstop -->
 
@@ -291,6 +297,47 @@
 </ol>
 <p><img src="/2024/07/26/papers/poa-2.png" alt="alt text"></p>
 <h3><span id="结果">结果</span><a href="#结果" class="header-anchor"> 🔗</a></h3><p>论文实验结果很多，比较有用的是：可以从 ViT-L 中从抽取性能差不多，但是量级类似 ViT-B&#x2F;S 性能更好的模型；真的太像 once-for-all 了，但是实验结果比较多，在实现上也只用 teacher model 作为监督。</p>
+<h2><span id="scaling-laws-for-precision">Scaling Laws for Precision</span><a href="#scaling-laws-for-precision" class="header-anchor"> 🔗</a></h2><p>考虑精度下的 scaling laws;</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2411.04330">https://arxiv.org/pdf/2411.04330</a></li>
+<li><a target="_blank" rel="noopener" href="https://x.com/tanishqkumar07/status/1856045600355352753">https://x.com/tanishqkumar07/status/1856045600355352753</a></li>
+</ul>
+<p>作者在量化大模型的时候发现大幅度掉点，于是转向了训练时量化；两种方式：QAT，仅 weight 量化，以及低精度量化， low-precision ，所有都是低精度；为了更好的研究，作者把模型拆解成 weights，activations，kvcache；以及用了指标来衡量量化：选择哪些地方量化（刚说的两种方式），低精度的选择（用什么 bit）；</p>
+<p>探究 scaling-laws 基于量化的规律：如何平衡 percision &amp; parameters &amp; data ?</p>
+<p>实验：</p>
+<ul>
+<li>训练了 465 个语言模型在 3-16 bits 之间；</li>
+<li>模型以及数据： OLMo-style models on the Dolma V1.7 dataset</li>
+<li>模型在 [30, 60, 110, 2220] million 的参数（N），数据token 在 [1.5, 3, 6, 13, 26] billion 的 tokens（D）；然后观察 ND 和其他指标之间的关系</li>
+</ul>
+<p>要点：</p>
+<p><img src="/2024/07/26/papers/slp_1.png" alt="模型和数据的关系"></p>
+<p><img src="/2024/07/26/papers/slp_2.png" alt="模型 / 数据 / Loss 关系"></p>
+<ul>
+<li><p>多少的训练数据对量化友好？ &#x3D;&#x3D;》 它会和模型以及硬件相关；当模型大的时候，这个数量取决于硬件的能力，当模型小的时候，数据量会增加会略微有提升；</p>
+</li>
+<li><p>通常我们在 16bit 下训练，然后用它的 4bit版本来推理，可能不是最优的；</p>
+</li>
+<li><p>数据和模型之间，之前有个 paper，大概 D &#x2F; N 等于 20 是计算最有的，D 数据数据，N 是模型的参数；在这个角度上现在的大部分的模型都是过度训练的；</p>
+</li>
+</ul>
+<p><img src="/2024/07/26/papers/slp_3.png" alt="PTQ的结果"></p>
+<ul>
+<li><p>D&#x2F;N 越大，意味数据越多，ptq loss 掉的越多；但是对于模型变大的时候，能找补一点；拟合了 delta(ptq_loss) 的一个公式，eq.2（也是 finding1） 就不截图了</p>
+</li>
+<li><p>Finding 1: Overtrained language models are more sensitive to post-training quantization. 这个结论的支撑点，fig 2 同等 token&#x2F;params 下，params 越大，ptq 带来的 loss 越多；</p>
+</li>
+<li><p>Finding 2: weights &amp; 中间特征 &amp; kv cache 的量化可以被建模成下面的公式；这个公式有泛化性，不同的数据和模型规模使用的系数不太一致</p>
+</li>
+</ul>
+<p><img src="/2024/07/26/papers/slp_4.png" alt="find2"></p>
+<ul>
+<li><p>Finding 3: 当我们对 模型大小（N） 数据集大小（D） 精度选择（P）一起优化时；预训练的精度其实是有一些特性，7-8 比特可能是最好的；但是如果 N 是固定的，此时训练精度可能越高越好；</p>
+</li>
+<li><p>Finding 4: 给出了NDP 对于损失的影响；如下面的公式</p>
+</li>
+</ul>
+<p><img src="/2024/07/26/papers/slp_5.png" alt="find4"></p>
 
                         
           </div>
@@ -415,7 +462,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2024 lucienne<br>
+      &copy; 2025 lucienne<br>
       
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
