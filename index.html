@@ -23,119 +23,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
-  direction: ltr;
-}
-
-mjx-container[jax="SVG"] > svg {
-  overflow: visible;
-}
-
-mjx-container[jax="SVG"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-
-mjx-container[jax="SVG"][justify="left"] {
-  text-align: left;
-}
-
-mjx-container[jax="SVG"][justify="right"] {
-  text-align: right;
-}
-
-g[data-mml-node="merror"] > g {
-  fill: red;
-  stroke: red;
-}
-
-g[data-mml-node="merror"] > rect[data-background] {
-  fill: yellow;
-  stroke: none;
-}
-
-g[data-mml-node="mtable"] > line[data-line] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > rect[data-frame] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > .mjx-dashed {
-  stroke-dasharray: 140;
-}
-
-g[data-mml-node="mtable"] > .mjx-dotted {
-  stroke-linecap: round;
-  stroke-dasharray: 0,140;
-}
-
-g[data-mml-node="mtable"] > svg {
-  overflow: visible;
-}
-
-[jax="SVG"] mjx-tool {
-  display: inline-block;
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
-[jax="SVG"] mjx-tool > mjx-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-mjx-tool > mjx-tip {
-  display: inline-block;
-  padding: .2em;
-  border: 1px solid #888;
-  font-size: 70%;
-  background-color: #F8F8F8;
-  color: black;
-  box-shadow: 2px 2px 5px #AAAAAA;
-}
-
-g[data-mml-node="maction"][data-toggle] {
-  cursor: pointer;
-}
-
-mjx-status {
-  display: block;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  min-width: 25%;
-  padding: .2em .4em;
-  border: 1px solid #888;
-  font-size: 90%;
-  background-color: #F8F8F8;
-  color: black;
-}
-
-foreignObject[data-mjx-xml] {
-  font-family: initial;
-  line-height: normal;
-  overflow: visible;
-}
-
-.MathJax path {
-  stroke-width: 3;
-}
-
-mjx-container[display="true"] {
-  overflow: auto hidden;
-}
-
-mjx-container[display="true"] + br {
-  display: none;
-}
-</style><link rel="alternate" href="/atom.xml" title="小圆的角落" type="application/atom+xml">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="小圆的角落" type="application/atom+xml">
 </head>
 <body>
   <div id="container">
@@ -180,6 +68,79 @@ mjx-container[display="true"] + br {
       <div class="outer">
         <section id="main">
   
+    <article id="post-papers1-md" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2025/01/15/papers1-md/" class="article-date">
+  <time datetime="2025-01-15T05:44:30.000Z" itemprop="datePublished">2025-01-15</time>
+</a>
+      
+  </div>
+  <div class="article-inner">
+    
+      
+        <header class="article-header">
+          
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/01/15/papers1-md/">论文记录2 - VLM</a>
+    </h1>
+  
+
+        </header>
+        
+          <div class="article-entry" itemprop="articleBody">
+            
+                      <!-- 
+    <div id="toc">
+        <strong class="sidebar-title"></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">An Introduction to Vision-Language Modeling 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Probing Visual Language Priors in VLMs 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">LLAVA Series 🔗</span></a></li></ol>
+    </div>
+     -->
+                      <span id="more"></span>
+
+<h2><span id="an-introduction-to-vision-language-modeling">An Introduction to Vision-Language Modeling</span><a href="#an-introduction-to-vision-language-modeling" class="header-anchor"> 🔗</a></h2><ul>
+<li>arxiv: <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2405.17247">https://arxiv.org/pdf/2405.17247</a></li>
+</ul>
+<p>介绍VLM的综述；将VLM的模型分成以下几类：</p>
+<ul>
+<li>对比学习，如 clip；构造 vision-language  样本对；拉近正样本对，拉远负样本对</li>
+<li>掩码学习，如 FLAVA, MaskVLM; 类似完形填空，把图像和对应的文本都mask掉，让模型补充；</li>
+<li>生成学习，如 VQ-VAE，Coca；text-to-image，image-to-text；</li>
+<li>预训练学习，如 Qwen，BLIP2；基于之前已经训练好的visual encoder &amp; llm， 学习一个adapter（下图中也称为 mapping network），类似多模态的 alignment？</li>
+</ul>
+<p><img src="/2025/01/15/papers1-md/vlm_intro.png" alt="四种vlm模型"></p>
+<p>基于这个intro，重点看以下这几个方法</p>
+<p>llava; llava adapter<br>clip adapter<br>BLIP<br>lumos STR scene text recogition<br>mokey architecture</p>
+<h2><span id="probing-visual-language-priors-in-vlms">Probing Visual Language Priors in VLMs</span><a href="#probing-visual-language-priors-in-vlms" class="header-anchor"> 🔗</a></h2><ul>
+<li>arxiv: <a target="_blank" rel="noopener" href="https://www.arxiv.org/pdf/2501.00569">https://www.arxiv.org/pdf/2501.00569</a></li>
+</ul>
+<p>VLMs过于依赖text的线索，而一些image的相关信息也非常重要，为了增强图像的影响，构造了一些训练样本；</p>
+<p>思考：但是这样会不会削弱text那方面的影响？根据结果来看的话，不太会，反而可能会更协同。</p>
+<h2><span id="llava-series">LLAVA Series</span><a href="#llava-series" class="header-anchor"> 🔗</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2304.08485">https://arxiv.org/pdf/2304.08485</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/695100288">https://zhuanlan.zhihu.com/p/695100288</a></li>
+</ul>
+<p>Takeaway:</p>
+<ul>
+<li>构建一些，图像-文本对的数据集来实现来提高 LLM 的性能；（某种程度上可以是做alignment？</li>
+</ul>
+
+                        
+          </div>
+          <footer class="article-footer">
+            <a data-url="http://lucienne999.github.io/2025/01/15/papers1-md/" data-id="cm8zhrp7j00004nl172hd5d52" class="article-share-link">Share</a>
+            
+                
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VLM/" rel="tag">VLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/papers/" rel="tag">papers</a></li></ul>
+
+          </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-review" class="article article-type-post" itemscope
   itemprop="blogPost">
   <div class="article-meta">
@@ -195,7 +156,7 @@ mjx-container[display="true"] + br {
           
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2024/11/26/review/">Review</a>
+      <a class="article-title" href="/2024/11/26/review/">随手记录</a>
     </h1>
   
 
@@ -203,7 +164,7 @@ mjx-container[display="true"] + br {
         
           <div class="article-entry" itemprop="articleBody">
             
-              <p>最近在重新熟悉之前的知识；留下点碎片记忆</p>
+              <p>无题</p>
                 
                   <p class="article-more-link">
                     <a href="/2024/11/26/review/#more">
@@ -287,7 +248,7 @@ mjx-container[display="true"] + br {
           
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2024/08/04/LLM-Learning-0/">WIP LLM-Learning 记录</a>
+      <a class="article-title" href="/2024/08/04/LLM-Learning-0/">LLM-Learning 记录</a>
     </h1>
   
 
@@ -295,7 +256,7 @@ mjx-container[display="true"] + br {
         
           <div class="article-entry" itemprop="articleBody">
             
-              <p>前言：在 LLM 淘汰我这个搬砖仔之前，决定死的瞑目些，于是开始了对 LLM 的了解。 本文是个笔记，记录的比较草台。</p>
+              <p>本文是个LLM学习笔记，记录的非常草台。</p>
                 
                   <p class="article-more-link">
                     <a href="/2024/08/04/LLM-Learning-0/#more">
@@ -333,7 +294,7 @@ mjx-container[display="true"] + br {
           
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/26/papers/">WIP 论文记录</a>
+      <a class="article-title" href="/2024/07/26/papers/">论文记录 - 无分类</a>
     </h1>
   
 
@@ -610,56 +571,6 @@ mjx-container[display="true"] + br {
 
 
   
-    <article id="post-quant-note-md" class="article article-type-post" itemscope
-  itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2023/07/29/quant-note-md/" class="article-date">
-  <time datetime="2023-07-29T09:09:03.000Z" itemprop="datePublished">2023-07-29</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Papers/">Papers</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-      
-        <header class="article-header">
-          
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/07/29/quant-note-md/">量化笔记</a>
-    </h1>
-  
-
-        </header>
-        
-          <div class="article-entry" itemprop="articleBody">
-            
-              <p>本文介绍量化的相关的知识，主要是针对 <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT/tree/master/tools/pytorch-quantization">pytorch_quantization</a> 以及 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1806.08342.pdf">量化白皮书</a> 的介绍。并涉及一些当前的量化进展。</p>
-                
-                  <p class="article-more-link">
-                    <a href="/2023/07/29/quant-note-md/#more">
-                      Read More
-                    </a>
-                  </p>
-                  
-                    
-          </div>
-          <footer class="article-footer">
-            <a data-url="http://lucienne999.github.io/2023/07/29/quant-note-md/" data-id="clytrlz1g000myvl17qf1a0z0" class="article-share-link">Share</a>
-            
-                
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/" rel="tag">模型量化</a></li></ul>
-
-          </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -676,7 +587,11 @@ mjx-container[display="true"] + br {
       <ul>
         
           <li>
-            <a href="/2024/11/26/review/">Review</a>
+            <a href="/2025/01/15/papers1-md/">论文记录2 - VLM</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/26/review/">随手记录</a>
           </li>
         
           <li>
@@ -684,11 +599,11 @@ mjx-container[display="true"] + br {
           </li>
         
           <li>
-            <a href="/2024/08/04/LLM-Learning-0/">WIP LLM-Learning 记录</a>
+            <a href="/2024/08/04/LLM-Learning-0/">LLM-Learning 记录</a>
           </li>
         
           <li>
-            <a href="/2024/07/26/papers/">WIP 论文记录</a>
+            <a href="/2024/07/26/papers/">论文记录 - 无分类</a>
           </li>
         
           <li>
@@ -711,10 +626,6 @@ mjx-container[display="true"] + br {
             <a href="/2023/08/11/cpack-note-md/">如何打包你的c++程序 [DEBIAN]</a>
           </li>
         
-          <li>
-            <a href="/2023/07/29/quant-note-md/">量化笔记</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -733,7 +644,7 @@ mjx-container[display="true"] + br {
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/" rel="tag">3D</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NeRF/" rel="tag">NeRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cpp/" rel="tag">cpp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/detect/" rel="tag">detect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/papers/" rel="tag">papers</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/" rel="tag">模型量化</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/" rel="tag">3D</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NeRF/" rel="tag">NeRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VLM/" rel="tag">VLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cpp/" rel="tag">cpp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/detect/" rel="tag">detect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/papers/" rel="tag">papers</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96/" rel="tag">模型量化</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -742,7 +653,7 @@ mjx-container[display="true"] + br {
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
