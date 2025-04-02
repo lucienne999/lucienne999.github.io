@@ -91,42 +91,15 @@
         
           <div class="article-entry" itemprop="articleBody">
             
-                      <!-- 
-    <div id="toc">
-        <strong class="sidebar-title"></strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">An Introduction to Vision-Language Modeling 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Probing Visual Language Priors in VLMs 🔗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">LLAVA Series 🔗</span></a></li></ol>
-    </div>
-     -->
-                      <span id="more"></span>
-
-<h2><span id="an-introduction-to-vision-language-modeling">An Introduction to Vision-Language Modeling</span><a href="#an-introduction-to-vision-language-modeling" class="header-anchor"> 🔗</a></h2><ul>
-<li>arxiv: <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2405.17247">https://arxiv.org/pdf/2405.17247</a></li>
-</ul>
-<p>介绍VLM的综述；将VLM的模型分成以下几类：</p>
-<ul>
-<li>对比学习，如 clip；构造 vision-language  样本对；拉近正样本对，拉远负样本对</li>
-<li>掩码学习，如 FLAVA, MaskVLM; 类似完形填空，把图像和对应的文本都mask掉，让模型补充；</li>
-<li>生成学习，如 VQ-VAE，Coca；text-to-image，image-to-text；</li>
-<li>预训练学习，如 Qwen，BLIP2；基于之前已经训练好的visual encoder &amp; llm， 学习一个adapter（下图中也称为 mapping network），类似多模态的 alignment？</li>
-</ul>
-<p><img src="/2025/01/15/papers1-md/vlm_intro.png" alt="四种vlm模型"></p>
-<p>基于这个intro，重点看以下这几个方法</p>
-<p>llava; llava adapter<br>clip adapter<br>BLIP<br>lumos STR scene text recogition<br>mokey architecture</p>
-<h2><span id="probing-visual-language-priors-in-vlms">Probing Visual Language Priors in VLMs</span><a href="#probing-visual-language-priors-in-vlms" class="header-anchor"> 🔗</a></h2><ul>
-<li>arxiv: <a target="_blank" rel="noopener" href="https://www.arxiv.org/pdf/2501.00569">https://www.arxiv.org/pdf/2501.00569</a></li>
-</ul>
-<p>VLMs过于依赖text的线索，而一些image的相关信息也非常重要，为了增强图像的影响，构造了一些训练样本；</p>
-<p>思考：但是这样会不会削弱text那方面的影响？根据结果来看的话，不太会，反而可能会更协同。</p>
-<h2><span id="llava-series">LLAVA Series</span><a href="#llava-series" class="header-anchor"> 🔗</a></h2><ul>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2304.08485">https://arxiv.org/pdf/2304.08485</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/695100288">https://zhuanlan.zhihu.com/p/695100288</a></li>
-</ul>
-<p>Takeaway:</p>
-<ul>
-<li>构建一些，图像-文本对的数据集来实现来提高 LLM 的性能；（某种程度上可以是做alignment？</li>
-</ul>
-
-                        
+              <p>如题</p>
+                
+                  <p class="article-more-link">
+                    <a href="/2025/01/15/papers1-md/#more">
+                      Read More
+                    </a>
+                  </p>
+                  
+                    
           </div>
           <footer class="article-footer">
             <a data-url="http://lucienne999.github.io/2025/01/15/papers1-md/" data-id="cm8zhrp7j00004nl172hd5d52" class="article-share-link">Share</a>

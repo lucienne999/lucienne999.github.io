@@ -6,7 +6,7 @@
   <link href="http://lucienne999.github.io/atom.xml" rel="self"/>
   
   <link href="http://lucienne999.github.io/"/>
-  <updated>2025-04-02T05:32:57.791Z</updated>
+  <updated>2025-04-02T05:55:47.827Z</updated>
   <id>http://lucienne999.github.io/</id>
   
   <author>
@@ -21,17 +21,12 @@
     <link href="http://lucienne999.github.io/2025/01/15/papers1-md/"/>
     <id>http://lucienne999.github.io/2025/01/15/papers1-md/</id>
     <published>2025-01-15T05:44:30.000Z</published>
-    <updated>2025-04-02T05:32:57.791Z</updated>
+    <updated>2025-04-02T05:55:47.827Z</updated>
     
-    <content type="html"><![CDATA[<span id="more"></span><h2><span id="an-introduction-to-vision-language-modeling">An Introduction to Vision-Language Modeling</span><a href="#an-introduction-to-vision-language-modeling" class="header-anchor"> 🔗</a></h2><ul><li>arxiv: <a href="https://arxiv.org/pdf/2405.17247">https://arxiv.org/pdf/2405.17247</a></li></ul><p>介绍VLM的综述；将VLM的模型分成以下几类：</p><ul><li>对比学习，如 clip；构造 vision-language  样本对；拉近正样本对，拉远负样本对</li><li>掩码学习，如 FLAVA, MaskVLM; 类似完形填空，把图像和对应的文本都mask掉，让模型补充；</li><li>生成学习，如 VQ-VAE，Coca；text-to-image，image-to-text；</li><li>预训练学习，如 Qwen，BLIP2；基于之前已经训练好的visual encoder &amp; llm， 学习一个adapter（下图中也称为 mapping network），类似多模态的 alignment？</li></ul><p><img src="/2025/01/15/papers1-md/vlm_intro.png" alt="四种vlm模型"></p><p>基于这个intro，重点看以下这几个方法</p><p>llava; llava adapter<br>clip adapter<br>BLIP<br>lumos STR scene text recogition<br>mokey architecture</p><h2><span id="probing-visual-language-priors-in-vlms">Probing Visual Language Priors in VLMs</span><a href="#probing-visual-language-priors-in-vlms" class="header-anchor"> 🔗</a></h2><ul><li>arxiv: <a href="https://www.arxiv.org/pdf/2501.00569">https://www.arxiv.org/pdf/2501.00569</a></li></ul><p>VLMs过于依赖text的线索，而一些image的相关信息也非常重要，为了增强图像的影响，构造了一些训练样本；</p><p>思考：但是这样会不会削弱text那方面的影响？根据结果来看的话，不太会，反而可能会更协同。</p><h2><span id="llava-series">LLAVA Series</span><a href="#llava-series" class="header-anchor"> 🔗</a></h2><ul><li><a href="https://arxiv.org/pdf/2304.08485">https://arxiv.org/pdf/2304.08485</a></li><li><a href="https://zhuanlan.zhihu.com/p/695100288">https://zhuanlan.zhihu.com/p/695100288</a></li></ul><p>Takeaway:</p><ul><li>构建一些，图像-文本对的数据集来实现来提高 LLM 的性能；（某种程度上可以是做alignment？</li></ul>]]></content>
+    <content type="html"><![CDATA[<p>如题</p><span id="more"></span><h2><span id="an-introduction-to-vision-language-modeling">An Introduction to Vision-Language Modeling</span><a href="#an-introduction-to-vision-language-modeling" class="header-anchor"> 🔗</a></h2><ul><li>arxiv: <a href="https://arxiv.org/pdf/2405.17247">https://arxiv.org/pdf/2405.17247</a></li></ul><p>介绍VLM的综述；将VLM的模型分成以下几类：</p><ul><li>对比学习，如 clip；构造 vision-language  样本对；拉近正样本对，拉远负样本对</li><li>掩码学习，如 FLAVA, MaskVLM; 类似完形填空，把图像和对应的文本都mask掉，让模型补充；</li><li>生成学习，如 VQ-VAE，Coca；text-to-image，image-to-text；</li><li>预训练学习，如 Qwen，BLIP2；基于之前已经训练好的visual encoder &amp; llm， 学习一个adapter（下图中也称为 mapping network），类似多模态的 alignment？</li></ul><p><img src="/2025/01/15/papers1-md/vlm_intro.png" alt="四种vlm模型"></p><p>基于这个intro，重点看以下这几个方法</p><p>llava; llava adapter<br>clip adapter<br>BLIP<br>lumos STR scene text recogition<br>mokey architecture</p><h2><span id="probing-visual-language-priors-in-vlms">Probing Visual Language Priors in VLMs</span><a href="#probing-visual-language-priors-in-vlms" class="header-anchor"> 🔗</a></h2><ul><li>arxiv: <a href="https://www.arxiv.org/pdf/2501.00569">https://www.arxiv.org/pdf/2501.00569</a></li></ul><p>VLMs过于依赖text的线索，而一些image的相关信息也非常重要，为了增强图像的影响，构造了一些训练样本；</p><p>思考：但是这样会不会削弱text那方面的影响？根据结果来看的话，不太会，反而可能会更协同。</p><h2><span id="llava-series">LLAVA Series</span><a href="#llava-series" class="header-anchor"> 🔗</a></h2><ul><li><a href="https://arxiv.org/pdf/2304.08485">https://arxiv.org/pdf/2304.08485</a></li><li><a href="https://zhuanlan.zhihu.com/p/695100288">https://zhuanlan.zhihu.com/p/695100288</a></li></ul><p>Takeaway:</p><ul><li>构建一些，图像-文本对的数据集来实现来提高 LLM 的性能；（某种程度上可以是做alignment？</li></ul>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
-
-&lt;h2&gt;&lt;span id=&quot;an-introduction-to-vision-language-modeling&quot;&gt;An Introduction to Vision-Language Modeling&lt;/span&gt;&lt;a hre</summary>
-      
+    <summary type="html">&lt;p&gt;如题&lt;/p&gt;</summary>
     
     
     
@@ -47,9 +42,9 @@
     <link href="http://lucienne999.github.io/2024/11/26/review/"/>
     <id>http://lucienne999.github.io/2024/11/26/review/</id>
     <published>2024-11-26T02:37:44.000Z</published>
-    <updated>2025-04-02T05:32:46.549Z</updated>
+    <updated>2025-04-02T05:56:07.267Z</updated>
     
-    <content type="html"><![CDATA[<p>无题</p><span id="more"></span><ol><li>[20241126] 所有 dnn 的任务都可以分为：特征提取，任务设定，后处理，学习；而检测任务主要不同在任务设定，以及与之相关的后处理上；</li></ol><p>任务设定上，比如 two-stage 和 one-stage 的方法：在实现上的差别，two-stage 通常会依靠网络筛选一些靠谱的框，然后对这些框回归，预测类别；而 one-stage 的方法不会存在这个筛选的过程； 代表选手：FasterRCNN vs YOLO</p><p>再比如： anchor-based 和 anchor-free 的方法，上面说的两位代表，需要再特征图上铺不同长宽比的框，作为先验来帮助网络拟合，可以理解为我们和模型对话：假设有这个框是个物体，请帮我修改这个框让他的定位更准确，并帮我分类；这种需要都是 anchor-based；</p><p>anchor-free 的代表是 detr，再也不需要铺 anchor 了，也不需要因此引入的 NMS，输入是特征以及对应的位置编码，输出是预测对应预测结果；优美简洁；同样可以理解合模型对话：假设这个特征图有个物体，请帮我定位以及分类；</p><ol start="2"><li>[20250402] 最近在看的课程</li></ol><ul><li>diffusion: <a href="https://learn.deeplearning.ai/courses/diffusion-models/lesson/l8xge/intuition">https://learn.deeplearning.ai/courses/diffusion-models/lesson/l8xge/intuition</a> </li><li></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>无题</p><span id="more"></span><ol><li>[20241126] 所有 dnn 的任务都可以分为：特征提取，任务设定，后处理，学习；而检测任务主要不同在任务设定，以及与之相关的后处理上；</li></ol><p>任务设定上，比如 two-stage 和 one-stage 的方法：在实现上的差别，two-stage 通常会依靠网络筛选一些靠谱的框，然后对这些框回归，预测类别；而 one-stage 的方法不会存在这个筛选的过程； 代表选手：FasterRCNN vs YOLO</p><p>再比如： anchor-based 和 anchor-free 的方法，上面说的两位代表，需要再特征图上铺不同长宽比的框，作为先验来帮助网络拟合，可以理解为我们和模型对话：假设有这个框是个物体，请帮我修改这个框让他的定位更准确，并帮我分类；这种需要都是 anchor-based；</p><p>anchor-free 的代表是 detr，再也不需要铺 anchor 了，也不需要因此引入的 NMS，输入是特征以及对应的位置编码，输出是预测对应预测结果；优美简洁；同样可以理解合模型对话：假设这个特征图有个物体，请帮我定位以及分类；</p><ol start="2"><li>[20250402] 最近在看的课程</li></ol><ul><li>diffusion: <a href="https://learn.deeplearning.ai/courses/diffusion-models/lesson/l8xge/intuition">https://learn.deeplearning.ai/courses/diffusion-models/lesson/l8xge/intuition</a></li></ul>]]></content>
     
     
     <summary type="html">&lt;p&gt;无题&lt;/p&gt;</summary>
