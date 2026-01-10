@@ -1,0 +1,7 @@
+{
+  "name": "My Personal Oasis",
+  "description": "A sophisticated personal dashboard for managing knowledge notes, life journals, and AI-powered brainstorming.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
