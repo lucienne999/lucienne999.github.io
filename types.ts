@@ -3,7 +3,8 @@ export enum AppTab {
   HOME = 'home',
   NOTES = 'notes',
   LIFE = 'life',
-  AI = 'ai'
+  AI = 'ai',
+  GUESTBOOK = 'guestbook'
 }
 
 export interface Note {
@@ -17,10 +18,13 @@ export interface Note {
 
 export interface LifeMoment {
   id: string;
-  imageUrl: string;
+  title?: string;
+  imageUrl?: string;
   description: string;
+  content: string;
   date: string;
   location?: string;
+  tags?: string[];
 }
 
 export interface Suggestion {

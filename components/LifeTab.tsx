@@ -1,101 +1,101 @@
 
 import React, { useState } from 'react';
 import { LifeMoment } from '../types';
-import { ICONS } from '../constants';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 interface LifeTabProps {
   moments: LifeMoment[];
-  onAddMoment: (moment: Omit<LifeMoment, 'id' | 'date'>) => void;
 }
 
-const LifeTab: React.FC<LifeTabProps> = ({ moments, onAddMoment }) => {
-  const [isAdding, setIsAdding] = useState(false);
-  const [newMoment, setNewMoment] = useState({ description: '', location: '', imageUrl: '' });
+const LifeTab: React.FC<LifeTabProps> = ({ moments }) => {
+  const [active, setActive] = useState<LifeMoment | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newMoment.description) return;
-    
-    // Default image if none provided
-    const imageUrl = newMoment.imageUrl || `https://picsum.photos/seed/${Date.now()}/800/600`;
-    onAddMoment({ ...newMoment, imageUrl });
-    setNewMoment({ description: '', location: '', imageUrl: '' });
-    setIsAdding(false);
-  };
+  if (active) {
+    return (
+      <div className="space-y-8 animate-in fade-in slide-in-from-left-4 duration-500 max-w-3xl mx-auto">
+        <div className="flex items-center justify-between pb-6 border-b border-slate-100">
+          <div>
+            <h2 className="text-2xl font-bold text-slate-900">{active.title || '生活瞬间'}</h2>
+            <div className="text-xs text-slate-400 font-bold">{active.date}{active.location ? ` · ${active.location}` : ''}</div>
+          </div>
+          <button className="text-slate-400 hover:text-slate-600" onClick={() => setActive(null)}>返回</button>
+        </div>
+        <div className="aspect-[16/9] bg-black/5 rounded-xl overflow-hidden">
+          {active.imageUrl && (
+            <img src={active.imageUrl} alt={active.description} className="w-full h-full object-cover" />
+          )}
+        </div>
+        
+        {/* Tags Display */}
+        {active.tags && active.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {active.tags.map(tag => (
+              <span key={tag} className="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-medium rounded-full">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div className="prose prose-slate prose-lg max-w-none prose-p:leading-6 prose-p:my-3 prose-li:leading-6 prose-li:my-1 prose-code:before:content-none prose-code:after:content-none">
+          <ReactMarkdown 
+            remarkPlugins={[remarkGfm, remarkMath]} 
+            rehypePlugins={[rehypeKatex]}
+            components={{
+              code({node, className, children, ...props}) {
+                const match = /language-(\w+)/.exec(className || '')
+                const isInline = !match && !String(children).includes('\n')
+                if (isInline) {
+                  return (
+                    <code className="bg-slate-100 text-indigo-600 px-1.5 py-0.5 rounded text-[0.9em] font-mono break-words" {...props}>
+                      {children}
+                    </code>
+                  )
+                }
+                return <code className={className} {...props}>{children}</code>
+              }
+            }}
+          >
+            {active.content || active.description}
+          </ReactMarkdown>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-left-4 duration-500">
       <div className="flex justify-between items-end">
         <div>
           <h1 className="text-3xl font-bold text-slate-900">生活志</h1>
-          <p className="text-slate-500">记录那些闪闪发光的瞬间。</p>
+          <p className="text-slate-500">记录那些闪闪发光的瞬间</p>
         </div>
-        <button 
-          onClick={() => setIsAdding(true)}
-          className="bg-rose-500 text-white px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:bg-rose-600 transition-colors shadow-lg shadow-rose-100"
-        >
-          <ICONS.Add /> 记录瞬间
-        </button>
       </div>
 
-      {isAdding && (
-        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
-            <form onSubmit={handleSubmit} className="p-8 space-y-6">
-              <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-rose-600">捕捉瞬间</h2>
-                <button type="button" onClick={() => setIsAdding(false)} className="text-slate-400 hover:text-slate-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              <div className="space-y-4">
-                <textarea
-                  autoFocus
-                  className="w-full h-32 focus:outline-none resize-none placeholder:text-slate-300 text-lg"
-                  placeholder="这一刻发生了什么..."
-                  value={newMoment.description}
-                  onChange={(e) => setNewMoment({ ...newMoment, description: e.target.value })}
-                />
-                <input
-                  className="w-full border-b border-slate-100 py-2 focus:outline-none focus:border-rose-300"
-                  placeholder="你在哪里？"
-                  value={newMoment.location}
-                  onChange={(e) => setNewMoment({ ...newMoment, location: e.target.value })}
-                />
-                <input
-                  className="w-full border-b border-slate-100 py-2 focus:outline-none focus:border-rose-300"
-                  placeholder="图片 URL (可选)"
-                  value={newMoment.imageUrl}
-                  onChange={(e) => setNewMoment({ ...newMoment, imageUrl: e.target.value })}
-                />
-              </div>
-
-              <button type="submit" className="w-full bg-rose-500 text-white py-4 rounded-2xl font-bold hover:bg-rose-600 transition-colors">
-                保存瞬间
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
         {moments.map(moment => (
-          <div key={moment.id} className="bg-white rounded-[2rem] overflow-hidden border border-slate-100 group">
-            <div className="aspect-[4/3] overflow-hidden relative">
-              <img 
-                src={moment.imageUrl} 
-                alt={moment.description} 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-              />
-              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-slate-900 uppercase">
-                {moment.date}
+          <button key={moment.id} onClick={() => setActive(moment)} className="break-inside-avoid w-full block bg-white rounded-2xl overflow-hidden border border-slate-100 group text-left mb-6 hover:shadow-lg transition-shadow duration-300">
+            {moment.imageUrl && (
+              <div className="overflow-hidden relative">
+                <img src={moment.imageUrl} alt={moment.description} className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-slate-900 uppercase shadow-sm">
+                  {moment.date}
+                </div>
               </div>
-            </div>
+            )}
             <div className="p-6 space-y-3">
-              <p className="text-slate-700 font-medium leading-relaxed">{moment.description}</p>
+              {!moment.imageUrl && (
+                <div className="text-[10px] font-bold text-slate-400 uppercase mb-2">
+                  {moment.date}
+                </div>
+              )}
+              {moment.title && (
+                 <h3 className="text-lg font-bold text-slate-900 leading-tight">{moment.title}</h3>
+              )}
+              <p className="text-slate-700 font-medium leading-relaxed line-clamp-3 text-sm">{moment.description}</p>
               {moment.location && (
                 <div className="flex items-center gap-1.5 text-slate-400 text-xs">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
@@ -105,7 +105,7 @@ const LifeTab: React.FC<LifeTabProps> = ({ moments, onAddMoment }) => {
                 </div>
               )}
             </div>
-          </div>
+          </button>
         ))}
       </div>
     </div>

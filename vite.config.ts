@@ -9,5 +9,13 @@ export default defineConfig({
   base: './', // 使用相对路径可以兼容大多数 GitHub Pages 部署场景
   build: {
     outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          utils: ['react-markdown', 'remark-gfm', 'remark-math', 'rehype-katex'],
+        },
+      },
+    },
   }
 });

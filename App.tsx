@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { AppTab, Note, LifeMoment } from './types';
 import { ICONS, INITIAL_NOTES, INITIAL_MOMENTS } from './constants';
+import { loadNotes, loadMoments } from './services/contentLoader';
 import HomeTab from './components/HomeTab';
 import NotesTab from './components/NotesTab';
 import LifeTab from './components/LifeTab';
@@ -12,36 +13,32 @@ const App: React.FC = () => {
   const [notes, setNotes] = useState<Note[]>(INITIAL_NOTES);
   const [moments, setMoments] = useState<LifeMoment[]>(INITIAL_MOMENTS);
 
-  const addNote = (note: Omit<Note, 'id' | 'createdAt'>) => {
-    const newNote: Note = {
-      ...note,
-      id: Math.random().toString(36).substr(2, 9),
-      createdAt: new Date().toISOString().split('T')[0]
-    };
-    setNotes([newNote, ...notes]);
-  };
+  useEffect(() => {
+    try {
+      const n = loadNotes();
+      const m = loadMoments();
+      console.log('Loaded notes:', n);
+      console.log('Loaded moments:', m);
+      setNotes(n);
+      setMoments(m);
+    } catch (e) {
+      console.error('Failed to load content:', e);
+    }
+  }, []);
 
-  const addMoment = (moment: Omit<LifeMoment, 'id' | 'date'>) => {
-    const newMoment: LifeMoment = {
-      ...moment,
-      id: Math.random().toString(36).substr(2, 9),
-      date: new Date().toISOString().split('T')[0]
-    };
-    setMoments([newMoment, ...moments]);
-  };
 
   const renderContent = () => {
     switch (activeTab) {
       case AppTab.HOME:
-        return <HomeTab onNavigate={setActiveTab} notesCount={notes.length} momentsCount={moments.length} />;
+        return <HomeTab onNavigate={setActiveTab} notes={notes} moments={moments} />;
       case AppTab.NOTES:
-        return <NotesTab notes={notes} onAddNote={addNote} />;
+        return <NotesTab notes={notes} />;
       case AppTab.LIFE:
-        return <LifeTab moments={moments} onAddMoment={addMoment} />;
+        return <LifeTab moments={moments} />;
       case AppTab.AI:
-        return <AITab notes={notes} />;
+        return <AITab />;
       default:
-        return <HomeTab onNavigate={setActiveTab} notesCount={notes.length} momentsCount={moments.length} />;
+        return <HomeTab onNavigate={setActiveTab} notes={notes} moments={moments} />;
     }
   };
 
@@ -49,9 +46,6 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-slate-50 text-slate-900 pb-24 md:pb-0 md:pl-20">
       {/* Sidebar Navigation (Desktop) */}
       <nav className="hidden md:flex fixed left-0 top-0 h-full w-20 bg-white border-r border-slate-200 flex-col items-center py-8 gap-8 z-50">
-        <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-4">
-          O
-        </div>
         <NavButton active={activeTab === AppTab.HOME} onClick={() => setActiveTab(AppTab.HOME)} icon={<ICONS.Home />} label="首页" />
         <NavButton active={activeTab === AppTab.NOTES} onClick={() => setActiveTab(AppTab.NOTES)} icon={<ICONS.Notes />} label="笔记" />
         <NavButton active={activeTab === AppTab.LIFE} onClick={() => setActiveTab(AppTab.LIFE)} icon={<ICONS.Life />} label="生活" />

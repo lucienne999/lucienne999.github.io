@@ -1,6 +1,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import 'katex/dist/katex.min.css'; // Import KaTeX styles
 import App from './App';
 
 const rootElement = document.getElementById('root');
