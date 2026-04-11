@@ -1,17 +1,67 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { LifeMoment } from '../types';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import mermaid from 'mermaid';
+
+// Initialize mermaid
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'default',
+  securityLevel: 'loose',
+  fontFamily: 'inherit'
+});
+
+// Mermaid component to render the diagram
+const Mermaid = ({ chart }: { chart: string }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [svg, setSvg] = useState<string>('');
+
+  useEffect(() => {
+    const renderChart = async () => {
+      if (containerRef.current && chart) {
+        try {
+          mermaid.mermaidAPI.reset();
+          const id = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
+          const { svg } = await mermaid.render(id, chart);
+          setSvg(svg);
+        } catch (error) {
+          console.error('Mermaid rendering error:', error);
+          setSvg(`<div class="text-red-500 p-4 border border-red-200 bg-red-50 rounded">图表渲染失败: ${error instanceof Error ? error.message : '未知错误'}</div>`);
+        }
+      }
+    };
+    renderChart();
+  }, [chart]);
+
+  return (
+    <div 
+      className="mermaid flex justify-center my-8 overflow-x-auto" 
+      ref={containerRef}
+      dangerouslySetInnerHTML={{ __html: svg }} 
+    />
+  );
+};
 
 interface LifeTabProps {
   moments: LifeMoment[];
+  targetId?: string;
 }
 
-const LifeTab: React.FC<LifeTabProps> = ({ moments }) => {
+const LifeTab: React.FC<LifeTabProps> = ({ moments, targetId }) => {
   const [active, setActive] = useState<LifeMoment | null>(null);
+
+  React.useEffect(() => {
+    if (targetId) {
+      const moment = moments.find(m => m.id === targetId);
+      if (moment) setActive(moment);
+    }
+  }, [targetId, moments]);
 
   if (active) {
     return (
@@ -45,6 +95,9 @@ const LifeTab: React.FC<LifeTabProps> = ({ moments }) => {
             remarkPlugins={[remarkGfm, remarkMath]} 
             rehypePlugins={[rehypeKatex]}
             components={{
+              pre({children}) {
+                return <div className="not-prose">{children}</div>
+              },
               code({node, className, children, ...props}) {
                 const match = /language-(\w+)/.exec(className || '')
                 const isInline = !match && !String(children).includes('\n')
@@ -55,7 +108,50 @@ const LifeTab: React.FC<LifeTabProps> = ({ moments }) => {
                     </code>
                   )
                 }
-                return <code className={className} {...props}>{children}</code>
+                if (match && match[1] === 'mermaid') {
+                  return <Mermaid chart={String(children).replace(/\n$/, '')} />;
+                }
+                const { ref, ...rest } = props;
+                return (
+                  <div className="rounded-xl my-6 bg-[#fafafa] border border-slate-200 shadow-sm overflow-hidden">
+                    <div className="flex items-center justify-between px-4 py-2 bg-[#f4f4f5] border-b border-slate-200">
+                      <div className="flex gap-1.5">
+                        <div className="w-3 h-3 rounded-full bg-[#ff5f56] border border-slate-300/20" />
+                        <div className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-slate-300/20" />
+                        <div className="w-3 h-3 rounded-full bg-[#27c93f] border border-slate-300/20" />
+                      </div>
+                      <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">
+                        {match ? match[1] : 'text'}
+                      </span>
+                    </div>
+                    <SyntaxHighlighter
+                      {...rest}
+                      style={oneLight}
+                      language={match ? match[1] : 'python'}
+                      PreTag="div"
+                      className="text-sm overflow-hidden !bg-transparent"
+                      showLineNumbers={true}
+                      customStyle={{
+                        margin: 0,
+                        padding: '1.5em',
+                        backgroundColor: 'transparent',
+                        fontSize: '0.9em',
+                        lineHeight: '1.5',
+                        letterSpacing: '0.05em',
+                        fontFamily: "'JetBrains Mono', 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
+                      }}
+                      lineNumberStyle={{
+                        minWidth: '2.5em',
+                        paddingRight: '1em',
+                        color: '#cbd5e1',
+                        textAlign: 'right',
+                        userSelect: 'none',
+                      }}
+                    >
+                      {String(children).replace(/\n$/, '')}
+                    </SyntaxHighlighter>
+                  </div>
+                );
               }
             }}
           >

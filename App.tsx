@@ -10,9 +10,11 @@ import AITab from './components/AITab';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AppTab>(AppTab.HOME);
+  const [targetId, setTargetId] = useState<string | undefined>(undefined);
   const [notes, setNotes] = useState<Note[]>(INITIAL_NOTES);
   const [moments, setMoments] = useState<LifeMoment[]>(INITIAL_MOMENTS);
 
+  // Load initial content
   useEffect(() => {
     try {
       const n = loadNotes();
@@ -26,19 +28,77 @@ const App: React.FC = () => {
     }
   }, []);
 
+  // Initialize state from URL hash on first load
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1); // remove '#'
+      if (!hash) {
+        setActiveTab(AppTab.HOME);
+        setTargetId(undefined);
+        return;
+      }
+
+      // Format: tab/id or just tab
+      const [tab, id] = hash.split('/');
+      
+      // Map hash tab name to AppTab enum
+      const tabMap: Record<string, AppTab> = {
+        'home': AppTab.HOME,
+        'notes': AppTab.NOTES,
+        'life': AppTab.LIFE,
+        'ai': AppTab.AI
+      };
+
+      if (tabMap[tab]) {
+        setActiveTab(tabMap[tab]);
+        if (id) {
+          setTargetId(decodeURIComponent(id));
+        } else {
+          setTargetId(undefined);
+        }
+      }
+    };
+
+    // Initial check
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleNavigate = (tab: AppTab, id?: string) => {
+    setActiveTab(tab);
+    setTargetId(id);
+    
+    // Update URL hash
+    let hash = '';
+    switch (tab) {
+      case AppTab.HOME: hash = 'home'; break;
+      case AppTab.NOTES: hash = 'notes'; break;
+      case AppTab.LIFE: hash = 'life'; break;
+      case AppTab.AI: hash = 'ai'; break;
+    }
+    
+    if (id) {
+      hash += `/${encodeURIComponent(id)}`;
+    }
+    
+    window.location.hash = hash;
+  };
 
   const renderContent = () => {
     switch (activeTab) {
       case AppTab.HOME:
-        return <HomeTab onNavigate={setActiveTab} notes={notes} moments={moments} />;
+        return <HomeTab onNavigate={handleNavigate} notes={notes} moments={moments} />;
       case AppTab.NOTES:
-        return <NotesTab notes={notes} />;
+        return <NotesTab notes={notes} targetId={targetId} />;
       case AppTab.LIFE:
-        return <LifeTab moments={moments} />;
+        return <LifeTab moments={moments} targetId={targetId} />;
       case AppTab.AI:
         return <AITab />;
       default:
-        return <HomeTab onNavigate={setActiveTab} notes={notes} moments={moments} />;
+        return <HomeTab onNavigate={handleNavigate} notes={notes} moments={moments} />;
     }
   };
 
@@ -46,18 +106,18 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-slate-50 text-slate-900 pb-24 md:pb-0 md:pl-20">
       {/* Sidebar Navigation (Desktop) */}
       <nav className="hidden md:flex fixed left-0 top-0 h-full w-20 bg-white border-r border-slate-200 flex-col items-center py-8 gap-8 z-50">
-        <NavButton active={activeTab === AppTab.HOME} onClick={() => setActiveTab(AppTab.HOME)} icon={<ICONS.Home />} label="首页" />
-        <NavButton active={activeTab === AppTab.NOTES} onClick={() => setActiveTab(AppTab.NOTES)} icon={<ICONS.Notes />} label="笔记" />
-        <NavButton active={activeTab === AppTab.LIFE} onClick={() => setActiveTab(AppTab.LIFE)} icon={<ICONS.Life />} label="生活" />
-        <NavButton active={activeTab === AppTab.AI} onClick={() => setActiveTab(AppTab.AI)} icon={<ICONS.AI />} label="智囊" />
+        <NavButton active={activeTab === AppTab.HOME} onClick={() => handleNavigate(AppTab.HOME)} icon={<ICONS.Home />} label="首页" />
+        <NavButton active={activeTab === AppTab.NOTES} onClick={() => handleNavigate(AppTab.NOTES)} icon={<ICONS.Notes />} label="笔记" />
+        <NavButton active={activeTab === AppTab.LIFE} onClick={() => handleNavigate(AppTab.LIFE)} icon={<ICONS.Life />} label="生活" />
+        <NavButton active={activeTab === AppTab.AI} onClick={() => handleNavigate(AppTab.AI)} icon={<ICONS.AI />} label="智囊" />
       </nav>
 
       {/* Bottom Navigation (Mobile) */}
       <nav className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 flex justify-around items-center py-4 z-50 glass-panel">
-        <NavButton active={activeTab === AppTab.HOME} onClick={() => setActiveTab(AppTab.HOME)} icon={<ICONS.Home />} label="首页" isMobile />
-        <NavButton active={activeTab === AppTab.NOTES} onClick={() => setActiveTab(AppTab.NOTES)} icon={<ICONS.Notes />} label="笔记" isMobile />
-        <NavButton active={activeTab === AppTab.LIFE} onClick={() => setActiveTab(AppTab.LIFE)} icon={<ICONS.Life />} label="生活" isMobile />
-        <NavButton active={activeTab === AppTab.AI} onClick={() => setActiveTab(AppTab.AI)} icon={<ICONS.AI />} label="智囊" isMobile />
+        <NavButton active={activeTab === AppTab.HOME} onClick={() => handleNavigate(AppTab.HOME)} icon={<ICONS.Home />} label="首页" isMobile />
+        <NavButton active={activeTab === AppTab.NOTES} onClick={() => handleNavigate(AppTab.NOTES)} icon={<ICONS.Notes />} label="笔记" isMobile />
+        <NavButton active={activeTab === AppTab.LIFE} onClick={() => handleNavigate(AppTab.LIFE)} icon={<ICONS.Life />} label="生活" isMobile />
+        <NavButton active={activeTab === AppTab.AI} onClick={() => handleNavigate(AppTab.AI)} icon={<ICONS.AI />} label="智囊" isMobile />
       </nav>
 
       {/* Main Content Area */}

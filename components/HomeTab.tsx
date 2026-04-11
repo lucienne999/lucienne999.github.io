@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { AppTab, Note, LifeMoment } from '../types';
 
 interface HomeTabProps {
-  onNavigate: (tab: AppTab) => void;
+  onNavigate: (tab: AppTab, id?: string) => void;
   notes: Note[];
   moments: LifeMoment[];
 }
@@ -92,7 +92,7 @@ const HomeTab: React.FC<HomeTabProps> = ({ onNavigate, notes, moments }) => {
             <div 
               key={`${item.type}-${item.id}`} 
               className="bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-lg transition-all cursor-pointer group"
-              onClick={() => onNavigate(item.type === 'note' ? AppTab.NOTES : AppTab.LIFE)}
+              onClick={() => onNavigate(item.type === 'note' ? AppTab.NOTES : AppTab.LIFE, item.id)}
             >
               <div className="p-5 flex flex-col justify-center">
                 <div className="flex items-center gap-2 mb-2">

@@ -121,6 +121,11 @@ Tip：滚动数组（Rolling Array）技巧，将空间降为 $O(1)$。滚动数
 1. https://leetcode.com/problems/climbing-stairs/ (easy)
 2. https://leetcode.com/problems/longest-increasing-subsequence/description/ (medium)
 3. https://leetcode.com/problems/maximum-subarray/ (medium)  **
+4. https://leetcode.com/problems/longest-common-subsequence/ (medium) **
+5. https://leetcode.com/problems/house-robber/ (medium)
+6. https://leetcode.com/problems/house-robber-ii/ (medium) **
+7. 
+
 
 
 心得：多找找构建转移矩阵的感觉；** 表示第一遍没做出来的题
