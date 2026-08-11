@@ -1,0 +1,105 @@
+digraph RayNodeProcessFlow {
+  graph [
+    bgcolor="white",
+    pad="0.25",
+    fontname="PingFang SC",
+    label="Ray 中 Node / Process / 抽象概念的对应关系",
+    labelloc=t,
+    fontsize=24
+  ];
+
+  node [
+    shape=plain,
+    fontname="PingFang SC",
+    fontsize=15
+  ];
+
+  flow [
+    label=<
+      <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="14" CELLPADDING="0">
+        <TR>
+          <TD WIDTH="210"><FONT POINT-SIZE="18"><B>机器维度 (Node)</B></FONT></TD>
+          <TD WIDTH="34"></TD>
+          <TD WIDTH="360"><FONT POINT-SIZE="18"><B>进程维度 (Process)</B></FONT></TD>
+          <TD WIDTH="34"></TD>
+          <TD WIDTH="330"><FONT POINT-SIZE="18"><B>Ray 概念维度 (抽象)</B></FONT></TD>
+        </TR>
+
+        <TR>
+          <TD BORDER="1" COLOR="#38BDF8" BGCOLOR="#E0F2FE" CELLPADDING="12">
+            <B>Head Node</B><BR/>
+            <FONT POINT-SIZE="12">头节点 / master</FONT>
+          </TD>
+          <TD><FONT POINT-SIZE="26">→</FONT></TD>
+          <TD>
+            <TABLE BORDER="1" COLOR="#0284C7" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+              <TR><TD BGCOLOR="#E0F2FE"><B>Driver 进程</B><BR/>你的主逻辑；普通函数在这里跑</TD></TR>
+              <TR><TD BGCOLOR="#F0F9FF"><B>GCS + 调度器</B><BR/>全局控制：谁空闲、派给谁</TD></TR>
+              <TR><TD BGCOLOR="#F0F9FF"><B>Object Store（分片）</B><BR/>共享内存：存结果</TD></TR>
+            </TABLE>
+          </TD>
+          <TD><FONT POINT-SIZE="26">→</FONT></TD>
+          <TD BORDER="1" COLOR="#F59E0B" BGCOLOR="#FEF3C7" CELLPADDING="12">
+            <B>你运行的脚本</B><BR/>
+            <FONT POINT-SIZE="12">python xxx.py</FONT><BR/>
+            <FONT POINT-SIZE="12">ray.init() / ray.get()</FONT><BR/><BR/>
+            <B>全局调度与对象存储</B>
+          </TD>
+        </TR>
+
+        <TR>
+          <TD COLSPAN="5" HEIGHT="14"></TD>
+        </TR>
+
+        <TR>
+          <TD BORDER="1" COLOR="#34D399" BGCOLOR="#ECFDF5" CELLPADDING="12">
+            <B>Worker Node 1</B>
+          </TD>
+          <TD><FONT POINT-SIZE="26">→</FONT></TD>
+          <TD>
+            <TABLE BORDER="1" COLOR="#059669" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+              <TR><TD BGCOLOR="#ECFDF5">Worker 进程 #1</TD></TR>
+              <TR><TD BGCOLOR="#ECFDF5">Worker 进程 #2</TD></TR>
+              <TR><TD BGCOLOR="#D1FAE5">Actor 进程 A</TD></TR>
+              <TR><TD BGCOLOR="#ECFDF5">Object Store（分片）</TD></TR>
+            </TABLE>
+          </TD>
+          <TD><FONT POINT-SIZE="26">→</FONT></TD>
+          <TD BORDER="1" COLOR="#8B5CF6" BGCOLOR="#F5F3FF" CELLPADDING="12">
+            <B>Task</B><BR/>
+            <FONT POINT-SIZE="12">无状态，用完即弃</FONT><BR/><BR/>
+            <B>Actor</B><BR/>
+            <FONT POINT-SIZE="12">常驻有状态对象</FONT><BR/><BR/>
+            <B>Object Store 分片</B><BR/>
+            <FONT POINT-SIZE="12">本机内存里的结果</FONT>
+          </TD>
+        </TR>
+
+        <TR>
+          <TD COLSPAN="5" HEIGHT="14"></TD>
+        </TR>
+
+        <TR>
+          <TD BORDER="1" COLOR="#34D399" BGCOLOR="#ECFDF5" CELLPADDING="12">
+            <B>Worker Node 2</B>
+          </TD>
+          <TD><FONT POINT-SIZE="26">→</FONT></TD>
+          <TD>
+            <TABLE BORDER="1" COLOR="#059669" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10">
+              <TR><TD BGCOLOR="#ECFDF5">Worker 进程 #3</TD></TR>
+              <TR><TD BGCOLOR="#D1FAE5">Actor 进程 B</TD></TR>
+              <TR><TD BGCOLOR="#ECFDF5">Object Store（分片）</TD></TR>
+            </TABLE>
+          </TD>
+          <TD><FONT POINT-SIZE="26">→</FONT></TD>
+          <TD BORDER="1" COLOR="#EC4899" BGCOLOR="#FCE7F3" CELLPADDING="12">
+            <B>Task / Actor 落地执行</B><BR/>
+            <FONT POINT-SIZE="12">最终都运行在某个 worker 或 actor 进程中</FONT><BR/><BR/>
+            <B>ObjectRef</B><BR/>
+            <FONT POINT-SIZE="12">指向 Object Store 中的真实结果</FONT>
+          </TD>
+        </TR>
+      </TABLE>
+    >
+  ];
+}
