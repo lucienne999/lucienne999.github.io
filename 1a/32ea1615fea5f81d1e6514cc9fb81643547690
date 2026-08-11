@@ -1,0 +1,51 @@
+.cache/ray-remote-sequence.dot
+  s_2d98074ebd1802::t_9dee6bfdf17971 12,14-122
+  s_2d98074ebd1802::t_08164bc54e488d 1-11,13,123-126
+.cache/ray-node-process-flow.dot
+  s_2d98074ebd1802::t_1d99508423c882 1-3,5-11,13,15-16,104-105
+  s_2d98074ebd1802::t_89f2590c7c9823 4,12,14,17-103
+.cache/draft.md
+  h_6b1e6c56151468 3,5,7,9-10,12,14,16-18,20,24,26,28,30,32,34-38,40,44,46,48-56,59,61-64,66,70,72,74-76,78-81,83-86,88-89,92,95-97,100,103,106,109-117,120,124
+  s_662db1a3d61c25::t_e776a0110f5379 1-2,4,6,8,11,13,15,19,21-23,25,27,29,31,33,39,41-43,45,47,57-58,60,65,67-69,71,73,77,82,87,90-91,93-94,98-99,101-102,104-105,107-108,118-119,121-123
+.cache/ray_actor_demo.py
+  s_9382ee1300afd1::t_9b81f3094522fb 1-115
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "1a32ea1615fea5f81d1e6514cc9fb81643547690",
+  "prompts": {},
+  "humans": {
+    "h_6b1e6c56151468": {
+      "author": "lucienne <liuchun.404@bytedance.com>"
+    }
+  },
+  "sessions": {
+    "s_2d98074ebd1802": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a40f93cb2c6f59db2f22773",
+        "model": "gpt-5.5__dev"
+      },
+      "human_author": "lucienne <liuchun.404@bytedance.com>"
+    },
+    "s_662db1a3d61c25": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a40e3e33158edaeb31771cd",
+        "model": "openrouter-3o__dev"
+      },
+      "human_author": "lucienne <liuchun.404@bytedance.com>"
+    },
+    "s_9382ee1300afd1": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a5b8de3929a648fe5bf30ab",
+        "model": "openrouter-3o__dev"
+      },
+      "human_author": "lucienne <liuchun.404@bytedance.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
