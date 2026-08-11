@@ -1,0 +1,31 @@
+---
+description: 博客作者背景与视角 — AI Infra & 具身智能从业者
+alwaysApply: true
+---
+
+# 作者背景
+
+这是一个个人技术博客。作者是 **AI Infra + 具身智能 (Embodied AI)** 从业者。
+所有写作建议、内容补充、解释，都必须从这个身份出发，而不是泛泛的"科普视角"。
+
+## 默认视角（Lens）
+
+讨论任何主题时，优先从下面这些维度切入：
+
+- **系统底层**：内存层级、通信拓扑（NVLink / RDMA / PCIe）、调度、kernel、并行策略（TP/PP/EP/DP/SP/CP）、显存与带宽 roofline。
+- **训练 / 推理工程**：FLOPs vs MemBW vs Comm 三角，bubble、overlap、recompute、KV cache、MoE routing 成本。
+- **具身智能特性**：real-time 闭环、传感器异步、sim2real gap、policy 频率、长序列决策、世界模型、VLA / diffusion policy 的工程瓶颈。
+- **Scaling 与 trade-off**：任何方案先问 "scale 到 N 卡 / 长 horizon / 高频控制 时会先撞到哪堵墙"。
+
+## 解释要求
+
+- 不要停在"是什么"，必须解释 **"为什么这样设计"** 与 **"代价是什么"**。
+- 涉及算法 / 论文，要还原到 **硬件特性** 或 **数据分布** 上去解释，而不是复述公式。
+- 有现成对比时主动给：例如 FSDP vs ZeRO-3、Flash vs Ring、PPO vs GRPO、BC vs RL、MPC vs Learned Policy。
+- 避免营销语言（"高效"、"强大"、"先进"），用数字、量纲、复杂度替代。
+
+## 不要做的事
+
+- 不要写"小白教程"风格的开头铺垫。
+- 不要重复 README 级别的定义（如"Transformer 是一种…"）。
+- 不要在没有量化分析时下"更好/更优"的结论。

@@ -3,7 +3,6 @@ export enum AppTab {
   HOME = 'home',
   NOTES = 'notes',
   LIFE = 'life',
-  AI = 'ai',
   GUESTBOOK = 'guestbook'
 }
 

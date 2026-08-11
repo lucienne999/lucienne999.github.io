@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { AppTab, Note, LifeMoment } from '../types';
+import { siteConfig } from '../config/siteConfig';
 
 interface HomeTabProps {
   onNavigate: (tab: AppTab, id?: string) => void;
@@ -12,25 +13,20 @@ interface TimelineItem {
   date: string;
   title: string;
   id: string;
-  cover?: string;
   original: Note | LifeMoment;
 }
 
 const HomeTab: React.FC<HomeTabProps> = ({ onNavigate, notes, moments }) => {
   const timelineItems = useMemo(() => {
     const items: TimelineItem[] = [];
-    const imgRe = /!\[[^\]]*\]\(([^)]+)\)|<img[^>]*src=["']([^"']+)["'][^>]*>/i;
-    
+
     notes.forEach(note => {
-      const m = imgRe.exec(note.content);
-      const cover = m ? (m[1] || m[2]) : undefined;
       items.push({
         type: 'note',
         date: note.createdAt,
         title: note.title,
         id: note.id,
-        cover,
-        original: note
+        original: note,
       });
     });
 
@@ -39,79 +35,116 @@ const HomeTab: React.FC<HomeTabProps> = ({ onNavigate, notes, moments }) => {
       items.push({
         type: 'moment',
         date: moment.date,
-        title: displayTitle.length > 30 ? displayTitle.slice(0, 30) + '...' : displayTitle,
+        title: displayTitle.length > 40 ? displayTitle.slice(0, 40) + '...' : displayTitle,
         id: moment.id,
-        cover: moment.imageUrl,
-        original: moment
+        original: moment,
       });
     });
 
-    return items.sort((a, b) => (a.date < b.date ? 1 : -1)).slice(0, 10); // Show top 10 recent items
+    return items.sort((a, b) => (a.date < b.date ? 1 : -1)).slice(0, 8);
   }, [notes, moments]);
 
+  const { home } = siteConfig;
+
   return (
-    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <header className="space-y-3">
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">404 Not Found</h1>
-        <p className="text-slate-500">这个人很懒，也想写点什么</p>
-      </header>
-
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <button
-          onClick={() => onNavigate(AppTab.NOTES)}
-          className="group p-8 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-left"
-        >
-          <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-            </svg>
+    <div className="space-y-14 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <section className="grid min-h-[62vh] grid-cols-1 gap-5 lg:grid-cols-[1.25fr_0.75fr]">
+        <div className="hard-card rounded-[2rem] p-6 sm:p-8 lg:p-10 flex flex-col justify-between overflow-hidden relative">
+          <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-acid blur-sm" />
+          <div className="relative flex flex-wrap items-center gap-3 text-xs font-display uppercase tracking-[0.2em]">
+            <span className="rounded-full bg-night px-4 py-2 text-panel">{home.badge}</span>
+            <span className="rounded-full border border-neutral-900 bg-panel px-4 py-2">{notes.length} Notes</span>
+            <span className="rounded-full border border-neutral-900 bg-panel px-4 py-2">{moments.length} Moments</span>
           </div>
-          <h3 className="text-xl font-bold mb-2">笔记</h3>
-          <p className="text-slate-500">已有 {notes.length} 篇。</p>
-        </button>
 
-        <button
-          onClick={() => onNavigate(AppTab.LIFE)}
-          className="group p-8 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-left"
-        >
-          <div className="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-rose-600 group-hover:text-white transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
+          <div className="relative mt-16 space-y-6">
+            <h1 className="hero-line text-[19vw] font-extrabold uppercase sm:text-[7.8rem] lg:text-[9.5rem]">
+              {home.heroTitle.map((line, index) => (
+                <React.Fragment key={`${line}-${index}`}>
+                  {index > 0 && <br />}
+                  {line}
+                </React.Fragment>
+              ))}
+            </h1>
+            <p className="max-w-xl text-lg leading-8 text-neutral-700 md:text-xl">
+              {home.heroDescription}
+            </p>
           </div>
-          <h3 className="text-xl font-bold mb-2">生活</h3>
-          <p className="text-slate-500">记录了 {moments.length} 个瞬间。</p>
-        </button>
+        </div>
+
+        <div className="grid gap-5">
+          <button
+            onClick={() => onNavigate(AppTab.NOTES)}
+            className="ink-panel rounded-[2rem] p-7 text-left card-hover group flex flex-col justify-between min-h-[17rem]"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs uppercase tracking-[0.26em] text-acid">{home.notesCard.eyebrow}</span>
+              <span className="rounded-full border border-panel/30 px-3 py-1 font-mono text-xs">{notes.length}</span>
+            </div>
+            <div>
+              <h2 className="font-display text-5xl font-extrabold uppercase tracking-[-0.06em] group-hover:text-acid transition-colors">{home.notesCard.title}</h2>
+              <p className="mt-3 text-panel/70">{home.notesCard.description}</p>
+            </div>
+          </button>
+
+          <button
+            onClick={() => onNavigate(AppTab.LIFE)}
+            className="rounded-[2rem] border-2 border-neutral-900 bg-acid p-7 text-left card-hover group flex flex-col justify-between min-h-[17rem]"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs uppercase tracking-[0.26em]">{home.lifeCard.eyebrow}</span>
+              <span className="rounded-full border border-neutral-900 px-3 py-1 font-mono text-xs">{moments.length}</span>
+            </div>
+            <div>
+              <h2 className="font-display text-5xl font-extrabold uppercase tracking-[-0.06em] group-hover:text-accent transition-colors">{home.lifeCard.title}</h2>
+              <p className="mt-3 text-neutral-700">{home.lifeCard.description}</p>
+            </div>
+          </button>
+        </div>
       </section>
 
-      {/* Timeline Section */}
-      <section className="space-y-6">
-        <h2 className="text-2xl font-bold text-slate-900">最新动态</h2>
-        <div className="space-y-6">
+        {home.tickerText.trim() && (
+          <div className="ticker -mx-4 sm:-mx-6 px-4 sm:px-6 py-3 overflow-hidden">
+            <div className="font-display text-sm uppercase tracking-[0.24em] whitespace-nowrap">
+              {home.tickerText}
+          </div>
+        </div>
+        )}
+
+        <section>
+        <div className="space-y-4">
           {timelineItems.map((item, index) => (
-            <div 
-              key={`${item.type}-${item.id}`} 
-              className="bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-lg transition-all cursor-pointer group"
+            <button
+              key={`${item.type}-${item.id}`}
               onClick={() => onNavigate(item.type === 'note' ? AppTab.NOTES : AppTab.LIFE, item.id)}
+              className="w-full text-left rounded-[1.5rem] border-2 border-neutral-900 bg-panel p-5 md:p-6 card-hover group"
             >
-              <div className="p-5 flex flex-col justify-center">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider font-bold ${
-                    item.type === 'note' ? 'bg-blue-50 text-blue-600' : 'bg-rose-50 text-rose-600'
-                  }`}>
-                    {item.type === 'note' ? '笔记' : '生活'}
-                  </span>
-                  <span className="text-xs text-slate-400 font-mono">{item.date}</span>
+              <div className="grid gap-4 md:grid-cols-[4rem_1fr_auto] md:items-center">
+                <span className="font-display text-4xl font-extrabold tracking-[-0.08em] text-neutral-300">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div className="space-y-2">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className={`text-[10px] px-3 py-1 rounded-full font-mono uppercase tracking-[0.2em] border border-neutral-900 ${
+                      item.type === 'note' ? 'bg-acid text-neutral-900' : 'bg-night text-panel'
+                    }`}>
+                      {item.type === 'note' ? 'Note' : 'Life'}
+                    </span>
+                    <span className="text-xs text-neutral-500 font-mono">{item.date}</span>
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-semibold text-neutral-900 group-hover:text-accent transition-colors">
+                    {item.title}
+                  </h3>
                 </div>
-                <h3 className="text-lg font-bold text-slate-800 leading-snug group-hover:text-indigo-600 transition-colors">
-                  {item.title}
-                </h3>
+                <span className="font-display text-sm uppercase tracking-[0.18em] text-neutral-500 group-hover:text-accent transition-colors">
+                  Open
+                </span>
               </div>
-            </div>
+            </button>
           ))}
-          
+
           {timelineItems.length === 0 && (
-            <div className="text-slate-400 italic p-4">暂无动态</div>
+            <div className="text-neutral-500 italic p-4">暂无动态</div>
           )}
         </div>
       </section>
