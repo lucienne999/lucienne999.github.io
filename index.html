@@ -160,10 +160,60 @@
             letter-spacing: -0.035em;
         }
 
+<<<<<<< HEAD
         .prose-site blockquote {
             background: rgba(215, 255, 56, 0.2);
             border-radius: 1rem;
             padding: 1rem 1.25rem;
+=======
+        .prose-site blockquote,
+        .prose-site .note-callout {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            margin: 1.5rem 0;
+            padding: 0.9rem 1rem;
+            border: 1px solid rgba(171, 102, 27, 0.35);
+            border-radius: 0.85rem;
+            background: transparent;
+            color: #332d25;
+            box-shadow: none;
+        }
+
+        .prose-site .note-callout-icon {
+            flex: 0 0 auto;
+            display: grid;
+            width: 1.35rem;
+            height: 1.35rem;
+            place-items: center;
+            border-radius: 999px;
+            background: transparent;
+            font-size: 0.82rem;
+            line-height: 1;
+            transform: rotate(-12deg);
+        }
+
+        .prose-site .note-callout-content {
+            min-width: 0;
+        }
+
+        .prose-site .note-callout-content > :first-child {
+            margin-top: 0;
+        }
+
+        .prose-site .note-callout-content > :last-child {
+            margin-bottom: 0;
+        }
+
+        .prose-site .note-callout strong,
+        .prose-site .note-callout code {
+            color: #17130f;
+        }
+
+        .prose-site .note-callout p::before,
+        .prose-site .note-callout p::after {
+            content: none;
+>>>>>>> 1a32ea1615fea5f81d1e6514cc9fb81643547690
         }
 
         .prose-site table {
@@ -206,7 +256,10 @@
             content: none !important;
         }
     </style>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1a32ea1615fea5f81d1e6514cc9fb81643547690
 <script type="importmap">
 {
   "imports": {
@@ -221,6 +274,7 @@
   }
 }
 </script>
+<<<<<<< HEAD
   <script type="module" crossorigin src="./assets/index-BQSSUXpt.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/vendor-Cyb56QdE.js">
   <link rel="modulepreload" crossorigin href="./assets/utils-YokojQrV.js">
@@ -228,5 +282,11 @@
 </head>
 <body>
     <div id="root"></div>
+=======
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
+>>>>>>> 1a32ea1615fea5f81d1e6514cc9fb81643547690
 </body>
 </html>

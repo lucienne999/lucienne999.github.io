@@ -1,0 +1,42 @@
+---
+description: 技术笔记写作风格 — 深度优先、底层优先
+globs: posts/notes/**/*.md
+alwaysApply: false
+---
+
+# 技术笔记写作风格
+
+这些是 `posts/notes/` 下的深度技术笔记，目标读者是 **同行 infra / 具身智能工程师**，不是泛 AI 爱好者。
+
+## 结构建议
+
+每篇笔记尽量包含：
+
+1. **问题定义**：要解决什么 bottleneck？是 compute-bound、mem-bound 还是 comm-bound？
+2. **第一性原理推导**：从硬件约束 / 信息论 / 优化目标推出方案，而不是"先有方案再解释"。
+3. **机制拆解**：画出数据流、显存占用、通信 pattern；必要时用 mermaid 或伪代码。
+4. **代价分析**：显存 / 通信量 / 延迟 / 实现复杂度 / 数值稳定性，至少覆盖 3 项。
+5. **对比与边界**：相邻方案对比，并指出"什么时候它会失效"。
+6. **个人观点**：明确写出 takeaway，不要只总结。
+
+## 深度检查清单
+
+写完后自检：
+
+- [ ] 有没有给出 **量纲 / 复杂度 / 带宽估算**（如 `O(B·S·H/TP)`、`2·params bytes` 等）？
+- [ ] 有没有把算法行为映射到 **GPU 行为**（SM 利用率、HBM 带宽、NCCL collective）？
+- [ ] 对具身智能话题，有没有讨论 **实时性 / 频率 / 闭环延迟 / 部署形态**？
+- [ ] 是否回答了 "为什么不是另一个方案 X"？
+- [ ] 公式/结论是否标注了 **假设条件**（如 dense / causal mask / fp16）？
+
+## 风格
+
+- 中英术语混用 OK：`KV cache`、`all-gather`、`policy rollout` 不必强行翻译。
+- 代码块优先于自然语言描述算法。
+- 数字优先于形容词："节省 ~37% activation memory" 而不是"显著节省显存"。
+- 允许有强观点（"我认为 Ring Attention 在 H800 集群上不如 CP+FA3 的组合"），但要给依据。
+
+## 反例
+
+- ❌ "Flash Attention 是一种高效的注意力算法。"
+- ✅ "Flash Attention 把 attention 从 HBM-bound 变成 SRAM-bound：通过 tiling + online softmax，把 `O(S²)` 的 HBM 读写降到 `O(S²/M)`，代价是 recompute 反向的 `S²` 矩阵。"

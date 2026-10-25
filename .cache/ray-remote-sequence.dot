@@ -1,0 +1,126 @@
+digraph RayRemoteSequence {
+  graph [
+    bgcolor="white",
+    pad="0.25",
+    fontname="PingFang SC",
+    label="f.remote(x) 从提交任务到 ray.get(ref) 的执行流程",
+    labelloc=t,
+    fontsize=24
+  ];
+
+  node [
+    shape=plain,
+    fontname="PingFang SC",
+    fontsize=14
+  ];
+
+  sequence [
+    label=<
+      <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="10" CELLPADDING="0">
+        <TR>
+          <TD WIDTH="250" BORDER="1" COLOR="#0284C7" BGCOLOR="#E0F2FE" CELLPADDING="10">
+            <B>Driver 进程（你）</B><BR/>
+            <FONT POINT-SIZE="11">提交任务 / 持有 ObjectRef</FONT>
+          </TD>
+          <TD WIDTH="40"></TD>
+          <TD WIDTH="250" BORDER="1" COLOR="#F59E0B" BGCOLOR="#FEF3C7" CELLPADDING="10">
+            <B>调度器 GCS</B><BR/>
+            <FONT POINT-SIZE="11">挑选空闲 Worker</FONT>
+          </TD>
+          <TD WIDTH="40"></TD>
+          <TD WIDTH="250" BORDER="1" COLOR="#059669" BGCOLOR="#ECFDF5" CELLPADDING="10">
+            <B>Worker 进程</B><BR/>
+            <FONT POINT-SIZE="11">真正执行 f(x)</FONT>
+          </TD>
+          <TD WIDTH="40"></TD>
+          <TD WIDTH="260" BORDER="1" COLOR="#8B5CF6" BGCOLOR="#F5F3FF" CELLPADDING="10">
+            <B>Object Store 共享内存</B><BR/>
+            <FONT POINT-SIZE="11">保存真实结果</FONT>
+          </TD>
+        </TR>
+
+        <TR>
+          <TD BORDER="1" COLOR="#2563EB" BGCOLOR="#DBEAFE" CELLPADDING="10">
+            <B>ref = f.remote(x)</B><BR/>
+            <FONT POINT-SIZE="11">立刻拿到 ref，不阻塞</FONT>
+          </TD>
+          <TD><FONT POINT-SIZE="24">→</FONT></TD>
+          <TD BORDER="1" COLOR="#F97316" BGCOLOR="#FFF7ED" CELLPADDING="10">
+            <B>① 提交任务</B><BR/>
+            函数 + 参数 x
+          </TD>
+          <TD></TD>
+          <TD BORDER="1" COLOR="#E2E8F0" BGCOLOR="#F8FAFC" CELLPADDING="10">等待调度</TD>
+          <TD></TD>
+          <TD BORDER="1" COLOR="#E2E8F0" BGCOLOR="#F8FAFC" CELLPADDING="10">等待结果</TD>
+        </TR>
+
+        <TR>
+          <TD BORDER="1" COLOR="#94A3B8" BGCOLOR="#F8FAFC" CELLPADDING="10">
+            Driver 继续往下跑<BR/>
+            <FONT POINT-SIZE="11">此时 ref 只是凭证</FONT>
+          </TD>
+          <TD></TD>
+          <TD BORDER="1" COLOR="#F97316" BGCOLOR="#FFF7ED" CELLPADDING="10">
+            <B>② 找空闲 Worker</B><BR/>
+            决定派给谁
+          </TD>
+          <TD><FONT POINT-SIZE="24">→</FONT></TD>
+          <TD BORDER="1" COLOR="#16A34A" BGCOLOR="#DCFCE7" CELLPADDING="10">
+            <B>③ 执行 f(x)</B><BR/>
+            在 worker 进程中计算
+          </TD>
+          <TD></TD>
+          <TD BORDER="1" COLOR="#E2E8F0" BGCOLOR="#F8FAFC" CELLPADDING="10">等待写入</TD>
+        </TR>
+
+        <TR>
+          <TD BORDER="1" COLOR="#E2E8F0" BGCOLOR="#F8FAFC" CELLPADDING="10">暂时没有真实值</TD>
+          <TD></TD>
+          <TD BORDER="1" COLOR="#E2E8F0" BGCOLOR="#F8FAFC" CELLPADDING="10">调度完成</TD>
+          <TD></TD>
+          <TD BORDER="1" COLOR="#16A34A" BGCOLOR="#DCFCE7" CELLPADDING="10">
+            计算完成<BR/>
+            <FONT POINT-SIZE="11">结果不会直接回 Driver</FONT>
+          </TD>
+          <TD><FONT POINT-SIZE="24">→</FONT></TD>
+          <TD BORDER="1" COLOR="#9333EA" BGCOLOR="#F3E8FF" CELLPADDING="10">
+            <B>④ 写入结果</B><BR/>
+            结果进入 Object Store
+          </TD>
+        </TR>
+
+        <TR>
+          <TD BORDER="1" COLOR="#2563EB" BGCOLOR="#DBEAFE" CELLPADDING="10">
+            <B>result = ray.get(ref)</B><BR/>
+            <FONT POINT-SIZE="11">这一步开始等待真实值</FONT>
+          </TD>
+          <TD></TD>
+          <TD BORDER="1" COLOR="#E2E8F0" BGCOLOR="#F8FAFC" CELLPADDING="10"></TD>
+          <TD></TD>
+          <TD BORDER="1" COLOR="#E2E8F0" BGCOLOR="#F8FAFC" CELLPADDING="10"></TD>
+          <TD><FONT POINT-SIZE="24">→</FONT></TD>
+          <TD BORDER="1" COLOR="#9333EA" BGCOLOR="#F3E8FF" CELLPADDING="10">
+            <B>⑤ 用 ref 读取真实值</B><BR/>
+            找到对应结果
+          </TD>
+        </TR>
+
+        <TR>
+          <TD BORDER="1" COLOR="#0284C7" BGCOLOR="#E0F2FE" CELLPADDING="10">
+            <B>⑥ 返回 25</B><BR/>
+            阻塞到这里才拿到值
+          </TD>
+          <TD><FONT POINT-SIZE="24">←</FONT></TD>
+          <TD BORDER="1" COLOR="#E2E8F0" BGCOLOR="#F8FAFC" CELLPADDING="10"></TD>
+          <TD></TD>
+          <TD BORDER="1" COLOR="#E2E8F0" BGCOLOR="#F8FAFC" CELLPADDING="10"></TD>
+          <TD><FONT POINT-SIZE="24">←</FONT></TD>
+          <TD BORDER="1" COLOR="#9333EA" BGCOLOR="#F3E8FF" CELLPADDING="10">
+            Object Store 返回真实结果
+          </TD>
+        </TR>
+      </TABLE>
+    >
+  ];
+}
